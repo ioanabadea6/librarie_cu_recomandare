@@ -14,12 +14,8 @@ public class Payment {
     private int expiryYear;
     private int cvc;
     private String holderName;
-
     @OneToOne
     private Order order;
-
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
-//    private UserBilling userBilling;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "payment")
     private UserBilling userBilling;
 

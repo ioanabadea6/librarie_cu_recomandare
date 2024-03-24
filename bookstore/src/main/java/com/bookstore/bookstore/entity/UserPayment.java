@@ -19,14 +19,9 @@ public class UserPayment {
     private int cvc;
     private String holderName;
     private boolean defaultPayment;
-
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
-//    //@JoinColumn(name = "userBilling_id", nullable = false, unique = true)
-//    private UserBilling userBilling;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
     private UserBilling userBilling;
 

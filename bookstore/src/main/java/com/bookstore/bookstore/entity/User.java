@@ -1,17 +1,12 @@
 package com.bookstore.bookstore.entity;
 
-import com.bookstore.bookstore.entity.security.Authority;
-import com.bookstore.bookstore.entity.security.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.bookstore.bookstore.entity.security.Role2;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 
 import java.util.*;
 
 @Entity
-public class User implements UserDetails {
+public class User  {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id", nullable = false, updatable = false)
@@ -20,32 +15,23 @@ public class User implements UserDetails {
     private String password;
     private String firstName;
     private String lastName;
-
     @Column(name="email", nullable = false, updatable = false)
     private String email;
     private String phone;
     private boolean enabled=true;
-
+    private Role2 userRole;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private ShoppingCart shoppingCart;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserShipping> userShippingList;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserPayment> userPaymentList;
-
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<UserRole> userRoles = new HashSet<>();
-
     public User() {
     }
 
-    public User(Long id, String username, String password, String firstName, String lastName, String email, String phone, boolean enabled, ShoppingCart shoppingCart, List<UserShipping> userShippingList, List<UserPayment> userPaymentList, List<Order> orderList, Set<UserRole> userRoles) {
+    public User(Long id, String username, String password, String firstName, String lastName, String email, String phone, boolean enabled, ShoppingCart shoppingCart, List<UserShipping> userShippingList, List<UserPayment> userPaymentList, List<Order> orderList, Role2 userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -58,7 +44,7 @@ public class User implements UserDetails {
         this.userShippingList = userShippingList;
         this.userPaymentList = userPaymentList;
         this.orderList = orderList;
-        this.userRoles = userRoles;
+        this.userRole = userRole;
     }
 
     /**
@@ -249,66 +235,18 @@ public class User implements UserDetails {
      * Gets the roles assigned to the user.
      * @return The set of user roles.
      */
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
+    public Role2 getUserRole() {
+        return userRole;
+
+
     }
 
     /**
      * Sets the roles assigned to the user.
-     * @param userRoles The set of user roles to be set.
+     * @param userRole The set of user roles to be set.
      */
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRole(Role2 userRole) {
+        this.userRole = userRole;
     }
 
-    /**
-     * Gets the authorities granted to the user.
-     * @return The collection of granted authorities.
-     */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorites = new HashSet<>();
-        userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
-
-        return authorites;
-    }
-
-    /**
-     * Checks whether the user account is non-expired.
-     * @return True if the account is non-expired, otherwise false.
-     */
-    @Override
-    public boolean isAccountNonExpired() {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    /**
-     * Checks whether the user account is non-locked.
-     * @return True if the account is non-locked, otherwise false.
-     */
-    @Override
-    public boolean isAccountNonLocked() {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    /**
-     * Checks whether the user credentials are non-expired.
-     * @return True if the credentials are non-expired, otherwise false.
-     */
-    @Override
-    public boolean isCredentialsNonExpired() {
-        // TODO Auto-generated method stub
-        return true;
-    }
-
-    /**
-     * Checks whether the user account is enabled.
-     * @return True if the account is enabled, otherwise false.
-     */
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
 }

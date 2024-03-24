@@ -41,16 +41,12 @@ public class Book {
     private double ourPrice;
     @Column(name = "active", nullable = false)
     private boolean active=true;
-
     @Column(name = "description",columnDefinition="text")
     private String description;
     @Column(name = "inStockNumber", nullable = false)
     private int inStockNumber;
-
     @Transient
     private MultipartFile bookImage;
-
-
     @OneToMany(mappedBy = "book")
     @JsonIgnore
     private List<BookToCartItem> bookToCartItemList;

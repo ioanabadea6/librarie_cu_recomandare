@@ -25,8 +25,6 @@ public class BillingAddress {
     private String BillingAddressCountry;
     @Column(name = "BillingAddressZipcode", nullable = false)
     private String BillingAddressZipcode;
-
-
     @OneToOne
     private Order order;
 

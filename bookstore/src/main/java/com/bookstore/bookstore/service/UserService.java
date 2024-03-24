@@ -38,7 +38,7 @@ public class UserService {
         user.setEmail(registrationBody.getEmail());
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
-
+        user.setUserRole(registrationBody.getUserRole());
         return userDAO.save(user);
     }
 
@@ -52,6 +52,7 @@ public class UserService {
         user.setEmail(registrationBody.getEmail());
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
+        user.setUserRole(registrationBody.getUserRole());
         userDAO.delete(user);
     }
 
@@ -64,6 +65,7 @@ public class UserService {
         user.setEmail(registrationBody.getEmail());
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
+        user.setUserRole(registrationBody.getUserRole());
         return userDAO.save(user);
     }
 
@@ -76,6 +78,7 @@ public class UserService {
         user.setEmail(registrationBody.getEmail());
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
+        user.setUserRole(registrationBody.getUserRole());
         return user;
     }
 

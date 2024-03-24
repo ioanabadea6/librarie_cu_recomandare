@@ -1,5 +1,6 @@
 package com.bookstore.bookstore.api.model;
 
+import com.bookstore.bookstore.entity.security.Role2;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
@@ -17,6 +18,7 @@ public class RegistrationBody {
     private String phone;
     private boolean enabled=true;
 
+    private Role2 userRole;
 
     public String getLastName() {
         return lastName;
@@ -72,5 +74,13 @@ public class RegistrationBody {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Role2 getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Role2 userRole) {
+        this.userRole = userRole;
     }
 }

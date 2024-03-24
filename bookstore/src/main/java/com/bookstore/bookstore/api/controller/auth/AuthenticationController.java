@@ -32,16 +32,31 @@ public class AuthenticationController {
         this.userService.registerUser(registrationBody);
     }
 
+    /**
+     * Handles GET requests to "/find" endpoint.
+     * Finds a user based on the provided RegistrationBody.
+     * @param registrationBody The RegistrationBody object containing user information.
+     */
     @GetMapping("/find")
     public void findUser(@RequestBody RegistrationBody registrationBody){
         this.userService.findUser(registrationBody);
     }
 
+    /**
+     * Handles DELETE requests to "/delete" endpoint.
+     * Deletes a user based on the provided RegistrationBody.
+     * @param registrationBody The RegistrationBody object containing user information.
+     */
     @DeleteMapping("/delete")
     public void deleteUser(@RequestBody RegistrationBody registrationBody){
         this.userService.deleteUser(registrationBody);
     }
 
+    /**
+     * Handles PUT requests to "/update" endpoint.
+     * Updates a user based on the provided RegistrationBody.
+     * @param registrationBody The RegistrationBody object containing user information to be updated.
+     */
     @PutMapping("/update")
     public void updateUser(@RequestBody RegistrationBody registrationBody) {
         this.userService.updateUser(registrationBody);
