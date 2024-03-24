@@ -24,8 +24,12 @@ public class UserPayment {
     @JoinColumn(name="user_id")
     private User user;
 
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
+//    //@JoinColumn(name = "userBilling_id", nullable = false, unique = true)
+//    private UserBilling userBilling;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
     private UserBilling userBilling;
+
 
     /**
      * Constructs a new UserPayment instance.

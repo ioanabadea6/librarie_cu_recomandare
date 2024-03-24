@@ -9,14 +9,23 @@ import jakarta.persistence.*;
 public class BillingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "BillingAddressName", nullable = false)
     private String BillingAddressName;
+    @Column(name = "BillingAddressStreet1", nullable = false)
     private String BillingAddressStreet1;
+    @Column(name = "BillingAddressStreet2", nullable = false)
     private String BillingAddressStreet2;
+    @Column(name = "BillingAddressCity", nullable = false)
     private String BillingAddressCity;
+    @Column(name = "BillingAddressState", nullable = false)
     private String BillingAddressState;
+    @Column(name = "BillingAddressCountry", nullable = false)
     private String BillingAddressCountry;
+    @Column(name = "BillingAddressZipcode", nullable = false)
     private String BillingAddressZipcode;
+
 
     @OneToOne
     private Order order;

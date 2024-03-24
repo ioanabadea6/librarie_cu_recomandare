@@ -18,7 +18,9 @@ public class Payment {
     @OneToOne
     private Order order;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
+//    private UserBilling userBilling;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "payment")
     private UserBilling userBilling;
 
     public Payment() {

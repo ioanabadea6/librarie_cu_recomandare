@@ -13,23 +13,38 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "author", nullable = false)
     private String author;
+    @Column(name = "publisher", nullable = false)
     private String publisher;
+    @Column(name = "publicationDate", nullable = false)
     private String publicationDate;
+    @Column(name = "language", nullable = false)
     private String language;
+    @Column(name = "category", nullable = false)
     private String category;
+    @Column(name = "numberOfPages", nullable = false)
     private int numberOfPages;
+    @Column(name = "format", nullable = false)
     private String format;
+    @Column(name = "isbn", nullable = false)
     private int isbn;
+    @Column(name = "shippingWeight", nullable = false)
     private double shippingWeight;
+    @Column(name = "listPrice", nullable = false)
     private double listPrice;
+    @Column(name = "ourPrice", nullable = false)
     private double ourPrice;
+    @Column(name = "active", nullable = false)
     private boolean active=true;
 
-    @Column(columnDefinition="text")
+    @Column(name = "description",columnDefinition="text")
     private String description;
+    @Column(name = "inStockNumber", nullable = false)
     private int inStockNumber;
 
     @Transient

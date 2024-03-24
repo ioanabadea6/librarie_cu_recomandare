@@ -19,7 +19,11 @@ public class UserBilling {
     private String userBillingZipcode;
 
     @OneToOne(cascade=CascadeType.ALL)
+    //@JoinColumn(name = "userPayment_id", nullable = false, unique = true)
     private UserPayment userPayment;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Payment payment;
 
     /**
      * Represents user billing information.
