@@ -29,19 +29,54 @@ public class UserService {
      * @return The user that has been written to the database.
      * @throws UserAlreadyExistsException Thrown if there is already a user with the given information.
      */
-    public UserDAO registerUser(RegistrationBody registrationBody) throws UserAlreadyExistsException {
-        if (userDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()
-                || userDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()) {
-            throw new UserAlreadyExistsException();
-        }
+    public User registerUser(RegistrationBody registrationBody){
         User user = new User();
-        user.setEmail(registrationBody.getEmail());
         user.setUsername(registrationBody.getUsername());
+        user.setPassword(registrationBody.getPassword());
         user.setFirstName(registrationBody.getFirstName());
         user.setLastName(registrationBody.getLastName());
+        user.setEmail(registrationBody.getEmail());
+        user.setPhone(registrationBody.getPhone());
+        user.setEnabled(registrationBody.isEnabled());
 
-        user.setPassword(registrationBody.getPassword());
         return userDAO.save(user);
+    }
+
+    public void deleteUser(RegistrationBody registrationBody){
+        User user = new User();
+        user = findUser(registrationBody);
+        user.setUsername(registrationBody.getUsername());
+        user.setPassword(registrationBody.getPassword());
+        user.setFirstName(registrationBody.getFirstName());
+        user.setLastName(registrationBody.getLastName());
+        user.setEmail(registrationBody.getEmail());
+        user.setPhone(registrationBody.getPhone());
+        user.setEnabled(registrationBody.isEnabled());
+        userDAO.delete(user);
+    }
+
+    public User updateUser(RegistrationBody registrationBody){
+        User user = findUser(registrationBody);
+        user.setUsername(registrationBody.getUsername());
+        user.setPassword(registrationBody.getPassword());
+        user.setFirstName(registrationBody.getFirstName());
+        user.setLastName(registrationBody.getLastName());
+        user.setEmail(registrationBody.getEmail());
+        user.setPhone(registrationBody.getPhone());
+        user.setEnabled(registrationBody.isEnabled());
+        return userDAO.save(user);
+    }
+
+    public User findUser(RegistrationBody registrationBody){
+        User user = new User();
+        user.setUsername(registrationBody.getUsername());
+        user.setPassword(registrationBody.getPassword());
+        user.setFirstName(registrationBody.getFirstName());
+        user.setLastName(registrationBody.getLastName());
+        user.setEmail(registrationBody.getEmail());
+        user.setPhone(registrationBody.getPhone());
+        user.setEnabled(registrationBody.isEnabled());
+        return user;
     }
 
 }

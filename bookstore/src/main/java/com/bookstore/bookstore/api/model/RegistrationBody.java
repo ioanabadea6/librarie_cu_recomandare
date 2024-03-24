@@ -8,34 +8,14 @@ import jakarta.validation.constraints.*;
  * The information required to register a user.
  */
 public class RegistrationBody {
-    /** The username. */
-    @NotNull
-    @NotBlank
-    @Size(min=3, max=255)
     private String username;
-
-    /** The email. */
-    @NotNull
-    @NotBlank
-    @Email
-    private String email;
-
-    /** The password. */
-    @NotNull
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")
-    @Size(min=6, max=32)
     private String password;
-
-    /** The first name. */
-    @NotNull
-    @NotBlank
     private String firstName;
-
-    /** The last name. */
-    @NotNull
-    @NotBlank
     private String lastName;
+
+    private String email;
+    private String phone;
+    private boolean enabled=true;
 
 
     public String getLastName() {
@@ -76,5 +56,21 @@ public class RegistrationBody {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
