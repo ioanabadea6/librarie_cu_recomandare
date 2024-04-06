@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 public class BillingAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "BillingAddressName", nullable = false)

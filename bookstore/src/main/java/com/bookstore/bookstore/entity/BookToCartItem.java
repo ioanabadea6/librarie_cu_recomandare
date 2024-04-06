@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 public class BookToCartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne

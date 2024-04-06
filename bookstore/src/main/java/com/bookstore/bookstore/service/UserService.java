@@ -6,6 +6,8 @@ import com.bookstore.bookstore.entity.dao.UserDAO;
 import com.bookstore.bookstore.exception.UserAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Service for handling user actions.
  */
@@ -45,14 +47,14 @@ public class UserService {
     public void deleteUser(RegistrationBody registrationBody){
         User user = new User();
         user = findUser(registrationBody);
-        user.setUsername(registrationBody.getUsername());
-        user.setPassword(registrationBody.getPassword());
-        user.setFirstName(registrationBody.getFirstName());
-        user.setLastName(registrationBody.getLastName());
-        user.setEmail(registrationBody.getEmail());
-        user.setPhone(registrationBody.getPhone());
-        user.setEnabled(registrationBody.isEnabled());
-        user.setUserRole(registrationBody.getUserRole());
+//        user.setUsername(registrationBody.getUsername());
+//        user.setPassword(registrationBody.getPassword());
+//        user.setFirstName(registrationBody.getFirstName());
+//        user.setLastName(registrationBody.getLastName());
+//        user.setEmail(registrationBody.getEmail());
+//        user.setPhone(registrationBody.getPhone());
+//        user.setEnabled(registrationBody.isEnabled());
+//        user.setUserRole(registrationBody.getUserRole());
         userDAO.delete(user);
     }
 
@@ -66,6 +68,7 @@ public class UserService {
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
         user.setUserRole(registrationBody.getUserRole());
+        System.out.println(userDAO.save(user));
         return userDAO.save(user);
     }
 
@@ -79,7 +82,8 @@ public class UserService {
         user.setPhone(registrationBody.getPhone());
         user.setEnabled(registrationBody.isEnabled());
         user.setUserRole(registrationBody.getUserRole());
-        return user;
+        System.out.println(userDAO.findByUsername(registrationBody.getUsername()));
+        return userDAO.findByUsername(registrationBody.getUsername());
     }
 
 }

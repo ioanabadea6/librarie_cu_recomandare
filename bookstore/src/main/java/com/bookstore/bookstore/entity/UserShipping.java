@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 public class UserShipping {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String userShippingName;
     private String userShippingStreet1;

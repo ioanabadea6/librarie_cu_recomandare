@@ -9,7 +9,9 @@ import java.util.Optional;
  * Data Access Object for the LocalUser data.
  */
 public interface UserDAO extends CrudRepository<User, Long> {
-    Optional<User> findByUsernameIgnoreCase(String username);
+
+    User findByUsername(String username);
+    //Optional<User> findByUsernameIgnoreCase(String username);
 
     Optional<User> findByEmailIgnoreCase(String email);
 }

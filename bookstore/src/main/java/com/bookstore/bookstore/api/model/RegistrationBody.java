@@ -1,8 +1,6 @@
 package com.bookstore.bookstore.api.model;
 
-import com.bookstore.bookstore.entity.security.Role2;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.*;
+import com.bookstore.bookstore.entity.Role2;
 
 
 /**

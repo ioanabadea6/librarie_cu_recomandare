@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class ShippingAddress {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String ShippingAddressName;
     private String ShippingAddressStreet1;

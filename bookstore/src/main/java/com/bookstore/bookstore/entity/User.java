@@ -1,6 +1,5 @@
 package com.bookstore.bookstore.entity;
 
-import com.bookstore.bookstore.entity.security.Role2;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -8,7 +7,7 @@ import java.util.*;
 @Entity
 public class User  {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+   // @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id", nullable = false, updatable = false)
     private Long id;
     private String username;

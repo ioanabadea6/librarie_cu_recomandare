@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int qty;
     private BigDecimal subtotal;

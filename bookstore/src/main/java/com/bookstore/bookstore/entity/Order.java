@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name="user_order")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date orderDate;
     private Date shippingDate;

@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 @Entity
 public class UserPayment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type;
     private String cardName;
