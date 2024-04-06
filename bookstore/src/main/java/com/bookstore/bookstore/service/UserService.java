@@ -1,89 +1,16 @@
 package com.bookstore.bookstore.service;
 
-import com.bookstore.bookstore.api.model.RegistrationBody;
 import com.bookstore.bookstore.entity.User;
-import com.bookstore.bookstore.entity.dao.UserDAO;
-import com.bookstore.bookstore.exception.UserAlreadyExistsException;
-import org.springframework.stereotype.Service;
+import com.bookstore.bookstore.model.UserData;
+import com.bookstore.bookstore.repo.UserRepo;
 
-import java.util.Optional;
+public interface UserService {
 
-/**
- * Service for handling user actions.
- */
-@Service
-public class UserService {
+    public User insertUser(UserData userData);
 
-    /** The UserDAO. */
-    private UserDAO userDAO;
+    public void deleteUser(UserData userData);
 
-    /**
-     * Constructor injected by spring.
-     * @param userDAO
-     */
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+    public User updateUser(UserData userData);
 
-    /**
-     * Attempts to register a user given the information provided.
-     * @param registrationBody The registration information.
-     * @return The user that has been written to the database.
-     * @throws UserAlreadyExistsException Thrown if there is already a user with the given information.
-     */
-    public User registerUser(RegistrationBody registrationBody){
-        User user = new User();
-        user.setUsername(registrationBody.getUsername());
-        user.setPassword(registrationBody.getPassword());
-        user.setFirstName(registrationBody.getFirstName());
-        user.setLastName(registrationBody.getLastName());
-        user.setEmail(registrationBody.getEmail());
-        user.setPhone(registrationBody.getPhone());
-        user.setEnabled(registrationBody.isEnabled());
-        user.setUserRole(registrationBody.getUserRole());
-        return userDAO.save(user);
-    }
-
-    public void deleteUser(RegistrationBody registrationBody){
-        User user = new User();
-        user = findUser(registrationBody);
-//        user.setUsername(registrationBody.getUsername());
-//        user.setPassword(registrationBody.getPassword());
-//        user.setFirstName(registrationBody.getFirstName());
-//        user.setLastName(registrationBody.getLastName());
-//        user.setEmail(registrationBody.getEmail());
-//        user.setPhone(registrationBody.getPhone());
-//        user.setEnabled(registrationBody.isEnabled());
-//        user.setUserRole(registrationBody.getUserRole());
-        userDAO.delete(user);
-    }
-
-    public User updateUser(RegistrationBody registrationBody){
-        User user = findUser(registrationBody);
-        user.setUsername(registrationBody.getUsername());
-        user.setPassword(registrationBody.getPassword());
-        user.setFirstName(registrationBody.getFirstName());
-        user.setLastName(registrationBody.getLastName());
-        user.setEmail(registrationBody.getEmail());
-        user.setPhone(registrationBody.getPhone());
-        user.setEnabled(registrationBody.isEnabled());
-        user.setUserRole(registrationBody.getUserRole());
-        System.out.println(userDAO.save(user));
-        return userDAO.save(user);
-    }
-
-    public User findUser(RegistrationBody registrationBody){
-        User user = new User();
-        user.setUsername(registrationBody.getUsername());
-        user.setPassword(registrationBody.getPassword());
-        user.setFirstName(registrationBody.getFirstName());
-        user.setLastName(registrationBody.getLastName());
-        user.setEmail(registrationBody.getEmail());
-        user.setPhone(registrationBody.getPhone());
-        user.setEnabled(registrationBody.isEnabled());
-        user.setUserRole(registrationBody.getUserRole());
-        System.out.println(userDAO.findByUsername(registrationBody.getUsername()));
-        return userDAO.findByUsername(registrationBody.getUsername());
-    }
-
+    public User findUser(UserData userData);
 }

@@ -1,15 +1,19 @@
 package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.Book;
+import com.bookstore.bookstore.entity.User;
+import com.bookstore.bookstore.model.BookData;
+import com.bookstore.bookstore.model.UserData;
 
 import java.util.List;
 
 public interface BookService {
-    List<Book> findAll();
+    public Book insertBook(BookData bookData);
 
-    Book findOne(Long id);
+    public void deleteBook(BookData bookData);
 
-    List<Book> findByCategory(String category);
+    public Book updateBook(BookData bookData);
 
-    List<Book> blurrySearch(String title);
+    public Book findBook(BookData bookData);
+
 }

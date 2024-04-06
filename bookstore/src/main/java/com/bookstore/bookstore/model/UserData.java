@@ -1,43 +1,13 @@
-package com.bookstore.bookstore.entity;
+package com.bookstore.bookstore.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import jakarta.persistence.Column;
 
-import java.io.Serializable;
-
-@Entity
-@Table(name = "user")
-public class User implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-
-    @Column(name = "name")
+public class UserData {
     private String name;
-
-    @Column(name = "contactNumber")
     private String contactNumber;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "role")
     private String role;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

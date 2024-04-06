@@ -1,14 +1,13 @@
 package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.*;
+import com.bookstore.bookstore.model.OrderData;
 
 public interface OrderService {
-    Order createOrder(ShoppingCart shoppingCart,
-                      ShippingAddress shippingAddress,
-                      BillingAddress billingAddress,
-                      Payment payment,
-                      String shippingMehod,
-                      User user);
+    public Order insertOrder(OrderData orderData);
+    public void deleteOrder(OrderData orderData);
+    public Order updateOrder(OrderData orderData);
 
-    Order findOne(Long id);
+    public Order findOrder(OrderData orderData);
+
 }
