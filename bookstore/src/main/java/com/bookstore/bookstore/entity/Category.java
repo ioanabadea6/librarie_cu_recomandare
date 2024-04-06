@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -19,12 +20,20 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Book> books;
+
+
     public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
     public Category() {
+    }
+
+    public Category(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -42,4 +51,14 @@ public class Category implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
 }

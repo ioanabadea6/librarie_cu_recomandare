@@ -1,6 +1,7 @@
 package com.bookstore.bookstore.serviceImpl;
 
 import com.bookstore.bookstore.entity.Book;
+import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.repo.BookRepo;
 import com.bookstore.bookstore.service.BookService;
@@ -19,7 +20,12 @@ public class BookServiceImpl implements BookService {
         Book book = new Book();
         book.setTitle(bookData.getTitle());
         book.setAuthor(bookData.getAuthor());
-        book.setCategory(bookData.getCategory());
+        Category category = bookData.getCategory();
+        //if (category != null) {
+            book.setCategory(category);
+        //} else {
+        //    book.setCategory(new Category("necunoscut"));
+        //}
         book.setDescription(bookData.getDescription());
         book.setPrice(bookData.getPrice());
         return bookRepo.save(book);
