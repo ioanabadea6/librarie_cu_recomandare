@@ -1,19 +1,50 @@
 package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.Book;
-import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.BookData;
-import com.bookstore.bookstore.model.UserData;
 
 import java.util.List;
 
+/**
+ * Interfața pentru serviciul de gestionare a cărților.
+ */
 public interface BookService {
-    public Book insertBook(BookData bookData);
 
-    public void deleteBook(BookData bookData);
+    /**
+     * Inserează o carte în sistem.
+     *
+     * @param bookData Informațiile despre carte care urmează să fie inserată.
+     * @return Cartea inserată.
+     */
+    Book insertBook(BookData bookData);
 
-    public Book updateBook(BookData bookData);
+    /**
+     * Șterge o carte din sistem.
+     *
+     * @param bookData Informațiile despre carte care urmează să fie ștearsă.
+     */
+    void deleteBook(BookData bookData);
 
-    public Book findBook(BookData bookData);
+    /**
+     * Actualizează informațiile unei cărți în sistem.
+     *
+     * @param bookData Informațiile actualizate ale cărții.
+     * @return Cartea actualizată.
+     */
+    Book updateBook(BookData bookData);
 
+    /**
+     * Găsește o carte în sistem pe baza informațiilor furnizate.
+     *
+     * @param bookData Informațiile despre carte utilizate pentru căutare.
+     * @return Cartea găsită sau null dacă nu a fost găsită nicio carte.
+     */
+    Book findBook(BookData bookData);
+
+    /**
+     * Returnează o listă cu toate cărțile din sistem.
+     *
+     * @return Lista de cărți din sistem.
+     */
+    List<Book> findAll();
 }

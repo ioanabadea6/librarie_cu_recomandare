@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepo categoryRepo;
 
+    /**
+     * Constructs a new CategoryServiceImpl with the given CategoryRepo.
+     *
+     * @param categoryRepo The repository for Category entities.
+     */
     public CategoryServiceImpl(CategoryRepo categoryRepo) {
         this.categoryRepo = categoryRepo;
     }

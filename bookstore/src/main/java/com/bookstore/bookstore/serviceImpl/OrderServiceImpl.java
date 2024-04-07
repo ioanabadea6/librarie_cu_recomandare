@@ -12,6 +12,11 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderRepo reposityOrder;
 
+    /**
+     * Constructs a new OrderServiceImpl with the given OrderRepo.
+     *
+     * @param reposityOrder The repository for Order entities.
+     */
     public OrderServiceImpl(OrderRepo reposityOrder) {
         this.reposityOrder = reposityOrder;
     }

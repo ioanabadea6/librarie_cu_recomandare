@@ -6,10 +6,18 @@ import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     /** The user service. */
     private UserRepo reposityUser;
+
+    /**
+     * Constructs a new UserServiceImpl with the given UserRepo.
+     *
+     * @param reposityUser The repository for User entities.
+     */
     public UserServiceImpl(UserRepo reposityUser){
         this.reposityUser = reposityUser;
     }
@@ -52,4 +60,10 @@ public class UserServiceImpl implements UserService {
         System.out.println(user.getEmail());
         return user;
     }
+
+    @Override
+    public List<User> findAll() {
+        return reposityUser.findAll();
+    }
 }
+

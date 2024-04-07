@@ -1,20 +1,23 @@
 package com.bookstore.bookstore.api.controller.auth;
 
 
+import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.UserData;
 import com.bookstore.bookstore.service.UserService;
 import com.bookstore.bookstore.serviceImpl.UserServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class UserController {
     /** The user service. */
-    private UserServiceImpl userServiceImpl;
+    private UserService userService;
 
 
-    public UserController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -24,7 +27,7 @@ public class UserController {
      */
     @PostMapping("/insert")
     public UserData registerUser(@RequestBody UserData userData) {
-        this.userServiceImpl.insertUser(userData);
+        this.userService.insertUser(userData);
         return userData;
     }
 
@@ -35,7 +38,7 @@ public class UserController {
      */
     @GetMapping("/find")
     public UserData findUser(@RequestBody UserData userData){
-        this.userServiceImpl.findUser(userData);
+        this.userService.findUser(userData);
         return userData;
     }
 
@@ -46,7 +49,7 @@ public class UserController {
      */
     @DeleteMapping("/delete")
     public void deleteUser(@RequestBody UserData userData){
-        this.userServiceImpl.deleteUser(userData);
+        this.userService.deleteUser(userData);
     }
 
     /**
@@ -56,7 +59,18 @@ public class UserController {
      */
     @PutMapping("/update")
     public UserData updateUser(@RequestBody UserData userData) {
-        this.userServiceImpl.updateUser(userData);
+        this.userService.updateUser(userData);
         return userData;
     }
+
+    /**
+     * Endpoint for retrieving all users.
+     *
+     * @return A list of User objects representing all users in the system.
+     */
+    @GetMapping("/findAll")
+    public List<User> findAllUser(){
+        return this.userService.findAll();
+    }
+
 }
