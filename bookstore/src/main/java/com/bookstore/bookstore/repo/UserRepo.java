@@ -16,6 +16,13 @@ public interface UserRepo extends JpaRepository<User, Integer> {
      * @return Utilizatorul găsit sau null dacă nu există niciun utilizator cu acest username.
      */
     User findByUsername(String username);
+
+    /**
+     * Finds a user by their unique identifier.
+     *
+     * @param id the unique identifier of the user
+     * @return the user with the specified identifier, or null if not found
+     */
     User findUserById(Integer id);
 
 }

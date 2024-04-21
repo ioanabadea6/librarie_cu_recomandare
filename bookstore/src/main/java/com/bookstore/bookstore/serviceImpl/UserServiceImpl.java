@@ -2,6 +2,7 @@ package com.bookstore.bookstore.serviceImpl;
 
 import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.UserData;
+import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.UserService;
 import org.springframework.stereotype.Service;
@@ -42,16 +43,11 @@ public class UserServiceImpl implements UserService {
     /**
      * Deletes a user from the system.
      *
-     * @param userData the data of the user to be deleted
+     * @param usernameData the data of the user to be deleted
      */
-    public User deleteUser(UserData userData){
+    public User deleteUser(UsernameData usernameData){
         User user = new User();
-        user = findUser(userData);
-        user.setUsername(user.getUsername());
-        user.setContactNumber(userData.getContactNumber());
-        user.setEmail(userData.getEmail());
-        user.setPassword(userData.getPassword());
-        user.setRole(userData.getRole());
+        user = reposityUser.findByUsername(usernameData.getUsername());
         reposityUser.delete(user);
         return user;
     }
@@ -63,7 +59,7 @@ public class UserServiceImpl implements UserService {
      * @return the updated user
      */
     public User updateUser(UserData userData){
-        User user = findUser(userData);
+        User user = reposityUser.findByUsername(userData.getUsername());
         user.setUsername(user.getUsername());
         user.setName(userData.getName());
         user.setContactNumber(userData.getContactNumber());
@@ -76,13 +72,13 @@ public class UserServiceImpl implements UserService {
     /**
      * Finds a user by username.
      *
-     * @param userData the data of the user to be found
+     * @param usernameData the data of the user to be found
      * @return the found user
      */
 
-    public User findUser(UserData userData){
+    public User findUser(UsernameData usernameData){
         User user = new User();
-        user = reposityUser.findByUsername(userData.getUsername());
+        user = reposityUser.findByUsername(usernameData.getUsername());
         return user;
     }
 
