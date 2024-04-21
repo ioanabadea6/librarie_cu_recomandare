@@ -19,6 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepo = categoryRepo;
     }
 
+    /**
+     * Inserts a new category into the system.
+     *
+     * @param categoryData the data of the category to be inserted
+     * @return the inserted category
+     */
     @Override
     public Category insertCategory(CategoryData categoryData) {
         Category category = new Category();
@@ -26,13 +32,25 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepo.save(category);
     }
 
+    /**
+     * Deletes a category from the system.
+     *
+     * @param categoryData the data of the category to be deleted
+     */
     @Override
-    public void deleteCategory(CategoryData categoryData) {
+    public Category deleteCategory(CategoryData categoryData) {
         Category category = new Category();
         category = findCategory(categoryData);
         categoryRepo.delete(category);
+        return category;
     }
 
+    /**
+     * Updates an existing category in the system.
+     *
+     * @param categoryData the new data for the category
+     * @return the updated category
+     */
     @Override
     public Category updateCategory(CategoryData categoryData) {
         Category category = findCategory(categoryData);
@@ -40,6 +58,12 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepo.save(category);
     }
 
+    /**
+     * Finds a category by its unique identifier.
+     *
+     * @param categoryData the data of the category to be found
+     * @return the found category, or null if not found
+     */
     @Override
     public Category findCategory(CategoryData categoryData) {
         Category category = new Category();

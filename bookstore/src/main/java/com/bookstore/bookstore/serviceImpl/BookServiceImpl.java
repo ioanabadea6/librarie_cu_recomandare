@@ -33,10 +33,10 @@ public class BookServiceImpl implements BookService, Subject {
         this.bookRepo = bookRepo;
         this.categoryRepo = categoryRepo;
         this.observers = new ArrayList<>();
-        List<Book> books = bookRepo.findAll();
-        for(Book book : books){
-            this.attach(book);
-        }
+//        List<Book> books = bookRepo.findAll();
+//        for(Book book : books){
+//            this.attach(book);
+//        }
     }
 
     /**
@@ -54,6 +54,7 @@ public class BookServiceImpl implements BookService, Subject {
         book.setDescription(bookData.getDescription());
         book.setPrice(bookData.getPrice());
         book.setStock(bookData.getStock());
+        this.attach(book);
         return bookRepo.save(book);
     }
 
@@ -63,7 +64,7 @@ public class BookServiceImpl implements BookService, Subject {
      * @param bookData the data of the book to be deleted
      */
     @Override
-    public void deleteBook(BookData bookData) {
+    public Book deleteBook(BookData bookData) {
         Book book = new Book();
         book = findBook(bookData);
 //        book.setAuthor(bookData.getAuthor());
@@ -71,6 +72,7 @@ public class BookServiceImpl implements BookService, Subject {
 //        book.setDescription(bookData.getDescription());
 //        book.setPrice(bookData.getPrice());
         bookRepo.delete(book);
+        return book;
     }
 
     /**

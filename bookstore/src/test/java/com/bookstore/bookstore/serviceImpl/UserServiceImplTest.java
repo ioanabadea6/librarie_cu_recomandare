@@ -4,16 +4,13 @@ import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.UserData;
 import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.repo.UserRepo;
-import lombok.Builder;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.hamcrest.Matchers.any;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

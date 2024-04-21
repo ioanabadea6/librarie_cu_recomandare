@@ -21,7 +21,7 @@ public interface CategoryService {
      *
      * @param categoryData Informațiile despre categoria care urmează să fie ștearsă.
      */
-    void deleteCategory(CategoryData categoryData);
+    Category deleteCategory(CategoryData categoryData);
 
     /**
      * Actualizează informațiile unei categorii în sistem.

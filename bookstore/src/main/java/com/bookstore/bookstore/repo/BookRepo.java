@@ -33,6 +33,12 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
     @Query("SELECT b FROM Book b WHERE b.title = :title AND b.price = :price AND b.author = :author AND b.category.id = :category_fk")
     List<Book> findByTitlePriceAuthorAndCategory(String title, Integer price, String author, Integer category_fk);
 
+    /**
+     * Finds a book by its ID.
+     *
+     * @param id The ID of the book to find.
+     * @return The found book, or {@code null} if no book with the specified ID exists.
+     */
     Book findBookById(Integer id);
 
 }

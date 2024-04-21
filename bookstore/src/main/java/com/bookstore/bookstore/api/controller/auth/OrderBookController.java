@@ -16,29 +16,57 @@ public class OrderBookController {
         this.orderBookService = orderBookService;
     }
 
+    /**
+     * Inserts an order book into the system.
+     *
+     * @param orderBookData The data of the order book to be inserted.
+     * @return The inserted order book data.
+     */
     @PostMapping("/insert")
     public OrderBookData insertOrderBook(@RequestBody OrderBookData orderBookData){
         this.orderBookService.insertOrderBook(orderBookData);
         return orderBookData;
     }
 
+    /**
+     * Finds an order book in the system.
+     *
+     * @param orderBookData The data of the order book to find.
+     * @return The found order book data.
+     */
     @GetMapping("/find")
     public OrderBookData findOrderBook(@RequestBody OrderBookData orderBookData){
         this.orderBookService.findOrderBook(orderBookData);
         return orderBookData;
     }
 
+    /**
+     * Deletes an order book from the system.
+     *
+     * @param orderBookData The data of the order book to be deleted.
+     */
     @DeleteMapping("/delete")
     public void deleteOrderBook(@RequestBody OrderBookData orderBookData){
         this.orderBookService.deleteOrderBook(orderBookData);
     }
 
+    /**
+     * Updates an order book in the system.
+     *
+     * @param orderBookData The data of the order book to be updated.
+     * @return The updated order book data.
+     */
     @PutMapping("/update")
     public OrderBookData updateOrderBook(@RequestBody OrderBookData orderBookData){
         this.orderBookService.updateOrderBook(orderBookData);
         return orderBookData;
     }
 
+    /**
+     * Retrieves all order books from the system.
+     *
+     * @return A list of all order books.
+     */
     @GetMapping("/findAll")
     public List<OrderBook> findAll(){
         return this.orderBookService.findAll();

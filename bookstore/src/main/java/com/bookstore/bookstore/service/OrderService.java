@@ -21,7 +21,7 @@ public interface OrderService {
      *
      * @param orderData Informațiile despre comanda care urmează să fie ștearsă.
      */
-    void deleteOrder(OrderData orderData);
+    Order deleteOrder(OrderData orderData);
 
     /**
      * Actualizează informațiile unei comenzi în sistem.

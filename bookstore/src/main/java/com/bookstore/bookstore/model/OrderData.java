@@ -150,13 +150,22 @@ public class OrderData {
         this.createdBy = createdBy;
     }
 
+    /**
+     * Gets the ID of the user associated with the order.
+     *
+     * @return The ID of the user.
+     */
     public Integer getUserId() {
         return userId;
     }
 
+    /**
+     * Sets the ID of the user associated with the order.
+     *
+     * @param userId The ID of the user.
+     */
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 
 }

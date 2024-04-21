@@ -23,7 +23,7 @@ public interface BookService {
      *
      * @param bookData Informațiile despre carte care urmează să fie ștearsă.
      */
-    void deleteBook(BookData bookData);
+    Book deleteBook(BookData bookData);
 
     /**
      * Actualizează informațiile unei cărți în sistem.

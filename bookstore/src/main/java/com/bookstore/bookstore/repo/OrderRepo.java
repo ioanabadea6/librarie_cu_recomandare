@@ -21,7 +21,12 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
      * @return Comanda găsită sau null dacă nu există nicio comandă cu numele specificat.
      */
     Order findByName(String name);
-
+    /**
+     * Găsește o comandă după id-ul său.
+     *
+     * @param id Id-ul comenzii căutate.
+     * @return Comanda găsită sau null dacă nu există nicio comandă cu id-ul specificat.
+     */
     Order findById(Integer id);
 
 }

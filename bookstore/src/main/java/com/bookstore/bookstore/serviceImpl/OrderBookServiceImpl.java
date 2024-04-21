@@ -18,12 +18,25 @@ public class OrderBookServiceImpl implements OrderBookService {
     private OrderRepo orderRepo;
     private BookRepo bookRepo;
 
+    /**
+     * Constructs an {@code OrderBookServiceImpl} with the specified repositories.
+     *
+     * @param orderBookRepo The repository for {@code OrderBook} entities.
+     * @param orderRepo The repository for {@code Order} entities.
+     * @param bookRepo The repository for {@code Book} entities.
+     */
     public OrderBookServiceImpl(OrderBookRepo orderBookRepo, OrderRepo orderRepo, BookRepo bookRepo) {
         this.orderBookRepo = orderBookRepo;
         this.orderRepo = orderRepo;
         this.bookRepo = bookRepo;
     }
 
+    /**
+     * Inserts an order book into the system.
+     *
+     * @param orderBookData The data of the order book to be inserted.
+     * @return The inserted order book.
+     */
     @Override
     public OrderBook insertOrderBook(OrderBookData orderBookData) {
         OrderBook orderBook = new OrderBook();
@@ -33,13 +46,26 @@ public class OrderBookServiceImpl implements OrderBookService {
         return orderBookRepo.save(orderBook);
     }
 
+    /**
+     * Deletes an order book from the system.
+     *
+     * @param orderBookData The data of the order book to be deleted.
+     * @return The deleted order book.
+     */
     @Override
-    public void deleteOrderBook(OrderBookData orderBookData) {
+    public OrderBook deleteOrderBook(OrderBookData orderBookData) {
         OrderBook orderBook = new OrderBook();
         orderBook = findOrderBook(orderBookData);
         orderBookRepo.delete(orderBook);
+        return orderBook;
     }
 
+    /**
+     * Updates an existing order book in the system.
+     *
+     * @param orderBookData The new data for the order book.
+     * @return The updated order book.
+     */
     @Override
     public OrderBook updateOrderBook(OrderBookData orderBookData) {
         OrderBook orderBook = findOrderBook(orderBookData);
@@ -49,6 +75,12 @@ public class OrderBookServiceImpl implements OrderBookService {
         return orderBookRepo.save(orderBook);
     }
 
+    /**
+     * Finds an order book by its data.
+     *
+     * @param orderBookData The data of the order book to be found.
+     * @return The found order book.
+     */
     @Override
     public OrderBook findOrderBook(OrderBookData orderBookData) {
         OrderBook orderBook = new OrderBook();
@@ -56,16 +88,15 @@ public class OrderBookServiceImpl implements OrderBookService {
         return orderBook;
     }
 
+    /**
+     * Retrieves all order books from the system.
+     *
+     * @return A list of all order books.
+     */
     @Override
     public List<OrderBook> findAll() {
         return orderBookRepo.findAll();
     }
 
-    @Override
-    public List<Book> findBooks(OrderBookData orderBookData) {
-        List<Book> books = new ArrayList<>();
-        OrderBook orderBook = findOrderBook(orderBookData);
-        books.add(orderBook.getBook());
-        return books;
-    }
+
 }

@@ -1,5 +1,6 @@
 package com.bookstore.bookstore.api.controller.auth;
 
+import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.model.CategoryData;
 import com.bookstore.bookstore.serviceImpl.CategoryServiceImpl;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +52,8 @@ public class CategoryController {
      * @param categoryData The CategoryData object representing the category to be deleted.
      */
     @DeleteMapping("/delete")
-    public void deleteCategory(@RequestBody CategoryData categoryData) {
-        this.categoryServiceImpl.deleteCategory(categoryData);
+    public Category deleteCategory(@RequestBody CategoryData categoryData) {
+        return this.categoryServiceImpl.deleteCategory(categoryData);
     }
 
     /**
