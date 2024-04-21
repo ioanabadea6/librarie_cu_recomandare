@@ -23,7 +23,7 @@ public interface UserService {
      *
      * @param userData Informațiile despre utilizatorul care urmează să fie șters.
      */
-    void deleteUser(UserData userData);
+    User deleteUser(UserData userData);
 
     /**
      * Actualizează informațiile unui utilizator în sistem.

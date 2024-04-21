@@ -4,11 +4,31 @@ package com.bookstore.bookstore.model;
  * Clasa pentru reprezentarea datelor unui utilizator.
  */
 public class UserData {
+    private String username;
     private String name;
     private String contactNumber;
     private String email;
     private String password;
     private String role;
+
+
+    /**
+     * Returnează utilizatorul.
+     *
+     * @return utilizatorul.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Setează numele utilizatorul.
+     *
+     * @param username utilizatorul.
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     /**
      * Returnează numele utilizatorului.

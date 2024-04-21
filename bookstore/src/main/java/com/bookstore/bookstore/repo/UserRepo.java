@@ -10,10 +10,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepo extends JpaRepository<User, Integer> {
 
     /**
-     * Găsește un utilizator după numele său.
+     * Găsește un utilizator după username.
      *
-     * @param name Numele utilizatorului căutat.
-     * @return Utilizatorul găsit sau null dacă nu există niciun utilizator cu numele specificat.
+     * @param username Utilizatorului căutat.
+     * @return Utilizatorul găsit sau null dacă nu există niciun utilizator cu acest username.
      */
-    User findByName(String name);
+    User findByUsername(String username);
+    User findUserById(Integer id);
+
 }

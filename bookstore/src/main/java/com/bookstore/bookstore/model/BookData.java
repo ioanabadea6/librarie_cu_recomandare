@@ -1,6 +1,9 @@
 package com.bookstore.bookstore.model;
 
 import com.bookstore.bookstore.entity.Category;
+import com.bookstore.bookstore.entity.Order;
+
+import java.util.Set;
 
 /**
  * Clasa pentru reprezentarea datelor unei cărți.
@@ -8,9 +11,10 @@ import com.bookstore.bookstore.entity.Category;
 public class BookData {
     private String title;
     private String author;
-    private Category category;
+    private Integer category_fk;
     private String description;
     private Integer price;
+    private Integer stock;
 
     /**
      * Returnează titlul cărții.
@@ -49,24 +53,6 @@ public class BookData {
     }
 
     /**
-     * Returnează categoria cărții.
-     *
-     * @return Categoria cărții.
-     */
-    public Category getCategory() {
-        return category;
-    }
-
-    /**
-     * Setează categoria cărții.
-     *
-     * @param category Categoria cărții.
-     */
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    /**
      * Returnează descrierea cărții.
      *
      * @return Descrierea cărții.
@@ -101,4 +87,41 @@ public class BookData {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    /**
+     * Retrieves the stock quantity of this item.
+     *
+     * @return the stock quantity
+     */
+    public Integer getStock() {
+        return stock;
+    }
+
+    /**
+     * Sets the stock quantity of this item.
+     *
+     * @param stock the stock quantity to be set
+     */
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * Retrieves the foreign key referencing the category of this item.
+     *
+     * @return the foreign key representing the category
+     */
+    public Integer getCategory_fk() {
+        return category_fk;
+    }
+
+    /**
+     * Sets the foreign key referencing the category of this item.
+     *
+     * @param category_fk the foreign key representing the category to be set
+     */
+    public void setCategory_fk(Integer category_fk) {
+        this.category_fk = category_fk;
+    }
+
 }

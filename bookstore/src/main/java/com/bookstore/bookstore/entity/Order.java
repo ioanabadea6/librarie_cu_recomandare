@@ -1,22 +1,24 @@
 package com.bookstore.bookstore.entity;
 
+import com.bookstore.bookstore.ObserverDesignPattern.Observer;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Reprezintă o entitate pentru o comandă.
  */
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
-    @Column(name = "uuid")
-    private String uuid;
 
     @Column(name = "name")
     private String name;
@@ -39,58 +41,18 @@ public class Order implements Serializable {
     @Column(name = "createdby")
     private String createdBy;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderBook> orderBooks;
+
+
     /**
      * Constructor implicit pentru Order.
      */
     public Order() {
-    }
-
-    /**
-     * Constructor pentru o comandă cu ID.
-     *
-     * @param id             ID-ul comenzii.
-     * @param uuid           UUID-ul comenzii.
-     * @param name           Numele clientului.
-     * @param email          Adresa de email a clientului.
-     * @param contactNumber  Numărul de contact al clientului.
-     * @param paymentMethod  Metoda de plată.
-     * @param total          Totalul comenzii.
-     * @param productDetails Detaliile produsului comandat.
-     * @param createdBy      Numele persoanei care a creat comanda.
-     */
-    public Order(Integer id, String uuid, String name, String email, String contactNumber, String paymentMethod, Integer total, String productDetails, String createdBy) {
-        this.id = id;
-        this.uuid = uuid;
-        this.name = name;
-        this.email = email;
-        this.contactNumber = contactNumber;
-        this.paymentMethod = paymentMethod;
-        this.total = total;
-        this.productDetails = productDetails;
-        this.createdBy = createdBy;
-    }
-
-    /**
-     * Constructor pentru o comandă fără ID.
-     *
-     * @param uuid           UUID-ul comenzii.
-     * @param name           Numele clientului.
-     * @param email          Adresa de email a clientului.
-     * @param contactNumber  Numărul de contact al clientului.
-     * @param paymentMethod  Metoda de plată.
-     * @param total          Totalul comenzii.
-     * @param productDetails Detaliile produsului comandat.
-     * @param createdBy      Numele persoanei care a creat comanda.
-     */
-    public Order(String uuid, String name, String email, String contactNumber, String paymentMethod, Integer total, String productDetails, String createdBy) {
-        this.uuid = uuid;
-        this.name = name;
-        this.email = email;
-        this.contactNumber = contactNumber;
-        this.paymentMethod = paymentMethod;
-        this.total = total;
-        this.productDetails = productDetails;
-        this.createdBy = createdBy;
     }
 
     /**
@@ -109,24 +71,6 @@ public class Order implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returnează UUID-ul comenzii.
-     *
-     * @return UUID-ul comenzii.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Setează UUID-ul comenzii.
-     *
-     * @param uuid UUID-ul comenzii.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     /**
@@ -253,5 +197,68 @@ public class Order implements Serializable {
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    /**
+     * Retrieves the user associated with this order.
+     *
+     * @return the user associated with this order
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the user associated with this order.
+     *
+     * @param user the user to be associated with this order
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * Retrieves the list of order books associated with this order.
+     *
+     * @return the list of order books associated with this order
+     */
+    public List<OrderBook> getOrderBooks() {
+        return orderBooks;
+    }
+
+    /**
+     * Sets the list of order books associated with this order.
+     *
+     * @param orderBooks the list of order books to be associated with this order
+     */
+    public void setOrderBooks(List<OrderBook> orderBooks) {
+        this.orderBooks = orderBooks;
+    }
+
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param o the reference object with which to compare
+     * @return {@code true} if this object is the same as the {@code o} argument;
+     *         {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) && Objects.equals(name, order.name) && Objects.equals(email, order.email) && Objects.equals(contactNumber, order.contactNumber) && Objects.equals(paymentMethod, order.paymentMethod) && Objects.equals(total, order.total) && Objects.equals(productDetails, order.productDetails) && Objects.equals(createdBy, order.createdBy) && Objects.equals(user, order.user) && Objects.equals(orderBooks, order.orderBooks);
+    }
+
+    /**
+     * Returns a hash code value for the object. This method is supported for the benefit of
+     * hash tables such as those provided by {@link java.util.HashMap}.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, contactNumber, paymentMethod, total, productDetails, createdBy, user, orderBooks);
     }
 }

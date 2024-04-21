@@ -7,6 +7,7 @@ import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.repo.BookRepo;
+import com.bookstore.bookstore.repo.CategoryRepo;
 import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.BookService;
 import org.springframework.stereotype.Service;
@@ -19,56 +20,93 @@ import java.util.Objects;
 public class BookServiceImpl implements BookService, Subject {
     private BookRepo bookRepo;
     private List<Observer> observers;
+    private CategoryRepo categoryRepo;
 
     /**
-     * Constructs a new BookServiceImpl with the given BookRepo.
+     * Constructs a new instance of BookServiceImpl with the specified BookRepo and CategoryRepo.
+     * Additionally, initializes the list of observers and attaches all existing books to them.
      *
-     * @param bookRepo The repository for Book entities.
+     * @param bookRepo     the repository for managing books
+     * @param categoryRepo the repository for managing categories
      */
-    public BookServiceImpl(BookRepo bookRepo) {
+    public BookServiceImpl(BookRepo bookRepo, CategoryRepo categoryRepo) {
         this.bookRepo = bookRepo;
+        this.categoryRepo = categoryRepo;
         this.observers = new ArrayList<>();
-        List<Book> books= bookRepo.findAll();
+        List<Book> books = bookRepo.findAll();
         for(Book book : books){
             this.attach(book);
         }
     }
 
+    /**
+     * Inserts a new book into the system.
+     *
+     * @param bookData the data of the book to be inserted
+     * @return the inserted book
+     */
     @Override
     public Book insertBook(BookData bookData) {
         Book book = new Book();
         book.setTitle(bookData.getTitle());
         book.setAuthor(bookData.getAuthor());
-        Category category = bookData.getCategory();
-        book.setCategory(category);
+        book.setCategory(categoryRepo.findById(bookData.getCategory_fk()));
         book.setDescription(bookData.getDescription());
         book.setPrice(bookData.getPrice());
+        book.setStock(bookData.getStock());
         return bookRepo.save(book);
     }
 
+    /**
+     * Deletes a book from the system.
+     *
+     * @param bookData the data of the book to be deleted
+     */
     @Override
     public void deleteBook(BookData bookData) {
         Book book = new Book();
         book = findBook(bookData);
-        book.setAuthor(bookData.getAuthor());
-        book.setCategory(bookData.getCategory());
-        book.setDescription(bookData.getDescription());
-        book.setPrice(bookData.getPrice());
+//        book.setAuthor(bookData.getAuthor());
+//        book.setCategory(bookData.getCategory());
+//        book.setDescription(bookData.getDescription());
+//        book.setPrice(bookData.getPrice());
         bookRepo.delete(book);
     }
 
+    /**
+     * Updates an existing book in the system.
+     *
+     * @param bookData the new data for the book
+     * @return the updated book
+     */
     @Override
     public Book updateBook(BookData bookData) {
         Book book = findBook(bookData);
         book.setTitle(bookData.getTitle());
         book.setAuthor(bookData.getAuthor());
-        book.setCategory(bookData.getCategory());
+        book.setCategory(categoryRepo.findById(bookData.getCategory_fk()));
         book.setDescription(bookData.getDescription());
-        book.setPrice(bookData.getPrice());
-        this.notifyObservers(this.createNotifyMessage(bookData));
+        Integer oldPrice = book.getPrice();
+        Integer newPrice = bookData.getPrice();
+        if(!Objects.equals(oldPrice, newPrice)){
+            book.setPrice(bookData.getPrice());
+            this.notifyObservers(this.createNotifyMessagePrice(bookData));
+        }
+        Integer oldStock = book.getStock();
+        Integer newStock = bookData.getStock();
+        if(!Objects.equals(oldStock, newStock)){
+            book.setStock(bookData.getStock());
+            this.notifyObservers(this.createNotifyMessageStock(bookData));
+        }
         return bookRepo.save(book);
     }
 
+    /**
+     * Finds a book by its title.
+     *
+     * @param bookData the data of the book to be found
+     * @return the found book
+     */
     @Override
     public Book findBook(BookData bookData) {
         Book book = new Book();
@@ -76,11 +114,32 @@ public class BookServiceImpl implements BookService, Subject {
         return book;
     }
 
+    /**
+     * Retrieves all books from the system.
+     *
+     * @return a list of all books
+     */
     @Override
     public List<Book> findAll() {
         return bookRepo.findAll();
     }
 
+    /**
+     * Retrieves a list of books that match the given criteria of title, price, author, and category.
+     *
+     * @param bookData the data representing the criteria for searching books
+     * @return a list of books that match the specified criteria
+     */
+    @Override
+    public List<Book> findByTitlePriceAuthorAndCategory(BookData bookData) {
+        return bookRepo.findByTitlePriceAuthorAndCategory(bookData.getTitle(), bookData.getPrice(), bookData.getAuthor(), bookData.getCategory_fk());
+    }
+
+    /**
+     * Attaches an observer to the list of observers.
+     *
+     * @param observer the observer to be attached
+     */
     @Override
     public void attach(Observer observer) {
         if (!observers.contains(observer)) {
@@ -88,21 +147,47 @@ public class BookServiceImpl implements BookService, Subject {
         }
     }
 
+    /**
+     * Detaches an observer from the list of observers.
+     *
+     * @param observer the observer to be detached
+     */
     @Override
     public void detach(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifies all observers with the given message.
+     *
+     * @param msg the message to be sent to observers
+     */
     @Override
     public void notifyObservers(String msg) {
         for (Observer observer : observers) {
             observer.update(msg);
         }
     }
-    public String createNotifyMessage(BookData bookdata) {
-        String message = "Cartea cu titlul ";
-        message += bookdata.getTitle();
-        message += "si-a modificat pretul in " + bookdata.getPrice();
+
+    /**
+     * Creates a notification message for a price change.
+     *
+     * @param bookdata the data of the book with the price change
+     * @return the notification message
+     */
+    public String createNotifyMessagePrice(BookData bookdata) {
+        String message = "Cartea si-a modificat pretul in " + bookdata.getPrice();
+        return message;
+    }
+
+    /**
+     * Creates a notification message for a stock change.
+     *
+     * @param bookdata the data of the book with the stock change
+     * @return the notification message
+     */
+    public String createNotifyMessageStock(BookData bookdata) {
+        String message = "Cartea si-a modificat stocul in " + bookdata.getStock();
         return message;
     }
 

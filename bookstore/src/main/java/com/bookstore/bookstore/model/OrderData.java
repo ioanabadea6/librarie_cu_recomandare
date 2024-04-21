@@ -1,10 +1,11 @@
 package com.bookstore.bookstore.model;
 
+import java.util.List;
+
 /**
  * Clasa pentru reprezentarea datelor unei comenzi.
  */
 public class OrderData {
-    private String uuid;
     private String name;
     private String email;
     private String contactNumber;
@@ -12,23 +13,15 @@ public class OrderData {
     private Integer total;
     private String productDetails;
     private String createdBy;
+    private Integer userId;
+    private List<Integer> booksId;
 
-    /**
-     * Returnează UUID-ul comenzii.
-     *
-     * @return UUID-ul comenzii.
-     */
-    public String getUuid() {
-        return uuid;
+    public List<Integer> getBooksId() {
+        return booksId;
     }
 
-    /**
-     * Setează UUID-ul comenzii.
-     *
-     * @param uuid UUID-ul comenzii.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setBooksId(List<Integer> booksId) {
+        this.booksId = booksId;
     }
 
     /**
@@ -156,4 +149,14 @@ public class OrderData {
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+
 }

@@ -5,13 +5,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Reprezintă o entitate pentru o carte.
  */
 @Entity
 @Table(name = "book")
-public class Book implements Serializable, Observer {
+public class Book implements Observer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,41 +37,11 @@ public class Book implements Serializable, Observer {
     @Column(name = "price")
     private Integer price;
 
-    /**
-     * Constructor pentru o carte cu ID.
-     *
-     * @param id          ID-ul cărții.
-     * @param title       Titlul cărții.
-     * @param author      Autorul cărții.
-     * @param category    Categoria cărții.
-     * @param description Descrierea cărții.
-     * @param price       Prețul cărții.
-     */
-    public Book(Integer id, String title, String author, Category category, String description, Integer price) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.description = description;
-        this.price = price;
-    }
+    @Column(name = "stock")
+    private Integer stock;
 
-    /**
-     * Constructor pentru o carte fără ID.
-     *
-     * @param title       Titlul cărții.
-     * @param author      Autorul cărții.
-     * @param category    Categoria cărții.
-     * @param description Descrierea cărții.
-     * @param price       Prețul cărții.
-     */
-    public Book(String title, String author, Category category, String description, Integer price) {
-        this.title = title;
-        this.author = author;
-        this.category = category;
-        this.description = description;
-        this.price = price;
-    }
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderBook> orderBooks;
 
     /**
      * Constructor implicit pentru Book.
@@ -183,6 +157,43 @@ public class Book implements Serializable, Observer {
         this.id = id;
     }
 
+
+    /**
+     * Retrieves the stock quantity of this book.
+     *
+     * @return the stock quantity
+     */
+    public Integer getStock() {
+        return stock;
+    }
+
+    /**
+     * Sets the stock quantity of this book.
+     *
+     * @param stock the stock quantity to be set
+     */
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * Retrieves the list of order books associated with this object.
+     *
+     * @return the list of order books
+     */
+    public List<OrderBook> getOrderBooks() {
+        return orderBooks;
+    }
+
+    /**
+     * Sets the list of order books associated with this object.
+     *
+     * @param orderBooks the list of order books to be set
+     */
+    public void setOrderBooks(List<OrderBook> orderBooks) {
+        this.orderBooks = orderBooks;
+    }
+
     /**
      * Metodă de actualizare a cărții, implementată din interfața Observer.
      *
@@ -190,6 +201,32 @@ public class Book implements Serializable, Observer {
      */
     @Override
     public void update(String msg) {
-        System.out.println(this.title + ":" + msg);
+        System.out.println(this.title + ": " + msg);
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param o the reference object with which to compare
+     * @return {@code true} if this object is the same as the {@code o} argument;
+     *         {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(category, book.category) && Objects.equals(description, book.description) && Objects.equals(price, book.price) && Objects.equals(stock, book.stock) && Objects.equals(orderBooks, book.orderBooks);
+    }
+
+    /**
+     * Returns a hash code value for the object. This method is supported for the benefit of
+     * hash tables such as those provided by {@link java.util.HashMap}.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author, category, description, price, stock, orderBooks);
     }
 }

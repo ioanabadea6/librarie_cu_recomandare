@@ -47,4 +47,12 @@ public interface BookService {
      * @return Lista de cărți din sistem.
      */
     List<Book> findAll();
+
+    /**
+     * Retrieves a list of books that match the given criteria of title, price, author, and category.
+     *
+     * @param bookData the data representing the criteria for searching books
+     * @return a list of books that match the specified criteria
+     */
+    List<Book> findByTitlePriceAuthorAndCategory(BookData bookData);
 }

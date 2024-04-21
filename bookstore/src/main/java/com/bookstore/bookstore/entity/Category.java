@@ -1,17 +1,19 @@
 package com.bookstore.bookstore.entity;
 
+import com.bookstore.bookstore.ObserverDesignPattern.Observer;
 import lombok.Data;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Reprezintă o entitate pentru o categorie de cărți.
  */
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,17 +24,6 @@ public class Category implements Serializable {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Book> books;
-
-    /**
-     * Constructor pentru o categorie cu ID.
-     *
-     * @param id   ID-ul categoriei.
-     * @param name Numele categoriei.
-     */
-    public Category(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     /**
      * Constructor implicit pentru Category.
@@ -101,5 +92,31 @@ public class Category implements Serializable {
      */
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * @param o the reference object with which to compare
+     * @return {@code true} if this object is the same as the {@code o} argument;
+     *         {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(id, category.id) && Objects.equals(name, category.name) && Objects.equals(books, category.books);
+    }
+
+    /**
+     * Returns a hash code value for the object. This method is supported for the benefit of
+     * hash tables such as those provided by {@link java.util.HashMap}.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, books);
     }
 }

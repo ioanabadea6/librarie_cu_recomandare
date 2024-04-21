@@ -1,8 +1,11 @@
 package com.bookstore.bookstore.api.controller.auth;
 
+import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.service.BookService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller class for managing book-related operations.
@@ -65,5 +68,26 @@ public class BookController {
     public BookData updateBook(@RequestBody BookData bookData) {
         this.bookService.updateBook(bookData);
         return bookData;
+    }
+
+    /**
+     * Retrieves all books available in the system.
+     *
+     * @return a list of all books
+     */
+    @GetMapping("/findAll")
+    public List<Book> findAll() {
+        return this.bookService.findAll();
+    }
+
+    /**
+     * Retrieves a list of books that match the given criteria of title, price, author, and category.
+     *
+     * @param bookData the data representing the criteria for searching books
+     * @return a list of books that match the specified criteria
+     */
+    @GetMapping("/findByTitlePriceAuthorAndCategory")
+    public List<Book> findByTitlePriceAuthorAndCategory(@RequestBody BookData bookData) {
+        return this.bookService.findByTitlePriceAuthorAndCategory(bookData);
     }
 }

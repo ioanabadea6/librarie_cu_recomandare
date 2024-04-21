@@ -2,6 +2,7 @@ package com.bookstore.bookstore.serviceImpl;
 
 import com.bookstore.bookstore.entity.Order;
 import com.bookstore.bookstore.model.OrderData;
+import com.bookstore.bookstore.repo.OrderBookRepo;
 import com.bookstore.bookstore.repo.OrderRepo;
 import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.OrderService;
@@ -10,21 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private OrderRepo reposityOrder;
+    private OrderRepo orderRepo;
+    private UserRepo userRepo;
+    private OrderBookRepo orderBookRepo;
 
-    /**
-     * Constructs a new OrderServiceImpl with the given OrderRepo.
-     *
-     * @param reposityOrder The repository for Order entities.
-     */
-    public OrderServiceImpl(OrderRepo reposityOrder) {
-        this.reposityOrder = reposityOrder;
+    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo, OrderBookRepo orderBookRepo) {
+        this.orderRepo = orderRepo;
+        this.userRepo = userRepo;
+        this.orderBookRepo = orderBookRepo;
     }
+
 
     @Override
     public Order insertOrder(OrderData orderData) {
         Order order = new Order();
-        order.setUuid(orderData.getUuid());
         order.setName(orderData.getName());
         order.setEmail(orderData.getEmail());
         order.setContactNumber(orderData.getContactNumber());
@@ -32,7 +32,9 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(orderData.getTotal());
         order.setProductDetails(orderData.getProductDetails());
         order.setCreatedBy(orderData.getCreatedBy());
-        return reposityOrder.save(order);
+        order.setUser(userRepo.findUserById(orderData.getUserId()));
+        //order.setOrderBooks(orderData.getBooksId(orderBookRepo.findByOrderId(orderData.get)));
+        return orderRepo.save(order);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(orderData.getTotal());
         order.setProductDetails(orderData.getProductDetails());
         order.setCreatedBy(orderData.getCreatedBy());
-        reposityOrder.delete(order);
+        orderRepo.delete(order);
     }
 
     @Override
@@ -59,13 +61,13 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(orderData.getTotal());
         order.setProductDetails(orderData.getProductDetails());
         order.setCreatedBy(orderData.getCreatedBy());
-        return reposityOrder.save(order);
+        return orderRepo.save(order);
     }
 
     @Override
     public Order findOrder(OrderData orderData) {
         Order order = new Order();
-        order = reposityOrder.findByUuid(orderData.getUuid());
+        order = orderRepo.findByName(orderData.getName());
         return order;
     }
 }

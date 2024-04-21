@@ -18,6 +18,9 @@ public class User implements Observer {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "name")
     private String name;
 
@@ -32,6 +35,10 @@ public class User implements Observer {
 
     @Column(name = "role")
     private String role;
+
+    public User() {
+    }
+
 
     /**
      * Returnează ID-ul utilizatorului.
@@ -49,6 +56,24 @@ public class User implements Observer {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Returnează utilizatorul.
+     *
+     * @return utilizatorul.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Setează utilizatorul.
+     *
+     * @param username utilizatorul.
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -148,7 +173,7 @@ public class User implements Observer {
      */
     @Override
     public void update(String msg) {
-        System.out.println(this.name + ":" + msg);
+        System.out.println(this.name + ": " + msg);
     }
 
     /**
@@ -163,5 +188,16 @@ public class User implements Observer {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(name, user.name);
+    }
+
+    /**
+     * Returns a hash code value for the object. This method is supported for the benefit of
+     * hash tables such as those provided by {@link java.util.HashMap}.
+     *
+     * @return a hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, contactNumber, email, password, role);
     }
 }
