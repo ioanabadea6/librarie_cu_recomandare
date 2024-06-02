@@ -112,11 +112,20 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * gaseste toate comenzile
+     * @return
+     */
     @Override
     public List<Order> findAll() {
         return orderRepo.findAll();
     }
 
+    /**
+     * Gaseste comenzile unui user
+     * @param usernameData
+     * @return
+     */
     @Override
     public List<Order> findByUsername(UsernameData usernameData) {
         User user = userRepo.findByUsername(usernameData.getUsername());
@@ -125,5 +134,15 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("No orders found for user");
         }
         return orders;
+    }
+
+    /**
+     * Gaseste o comanda in functie de id.
+     * @param id
+     * @return
+     */
+    @Override
+    public Order findOrderById(Integer id) {
+        return orderRepo.findById(id);
     }
 }

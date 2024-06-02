@@ -83,6 +83,11 @@ public class CategoryController {
         return categoryData;
     }
 
+    /**
+     * Endpoint for finding all categories.
+     *
+     * @return The found CategoryData objects.
+     */
     @GetMapping("/findAll")
     public List<Category> findAll(){
         return this.categoryServiceImpl.findAll();

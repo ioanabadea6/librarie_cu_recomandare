@@ -18,14 +18,27 @@ public class WishlistController {
         this.wishlistService = wishlistService;
     }
 
+    /**
+     Insert a book in whishlist.
+     */
     @PostMapping("/insert")
     public Wishlist insertFavorite(@RequestBody WishlistData wishlistData){
         return wishlistService.insert(wishlistData);
     }
+
+    /**
+     Delete a book from whishlist.
+     */
     @DeleteMapping("/delete")
     public Wishlist deleteFavorite(@RequestBody WishlistData wishlistData){
         return wishlistService.delete(wishlistData);
     }
+
+    /**
+     * Lists all books from wishlist.
+     * @param usernameData
+     * @return
+     */
     @PostMapping("/getFavorite")
     public List<Book> findUsersWishlist(@RequestBody UsernameData usernameData){
         return wishlistService.findUsersWishlist(usernameData);

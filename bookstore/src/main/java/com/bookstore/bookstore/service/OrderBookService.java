@@ -44,7 +44,6 @@ public interface OrderBookService {
      */
     List<OrderBook> findAll();
 
-//    List<OrderBook> findByOrderId(Integer orderID);
 
     void deleteAll();
 

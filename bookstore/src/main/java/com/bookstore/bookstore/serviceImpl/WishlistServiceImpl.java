@@ -26,6 +26,11 @@ public class WishlistServiceImpl implements WishlistService {
         this.wishlistRepo = wishlistRepo;
     }
 
+    /**
+     * Insereaza un wishlist
+     * @param wishlistData
+     * @return
+     */
     @Override
     public Wishlist insert(WishlistData wishlistData) {
         User user = userRepo.findByUsername(wishlistData.getUser());
@@ -51,6 +56,11 @@ public class WishlistServiceImpl implements WishlistService {
         return null;
     }
 
+    /**
+     * Sterge un wishlist
+     * @param wishlistData
+     * @return
+     */
     @Override
     public Wishlist delete(WishlistData wishlistData) {
         User user = userRepo.findByUsername(wishlistData.getUser());
@@ -74,6 +84,11 @@ public class WishlistServiceImpl implements WishlistService {
         return null;
     }
 
+    /**
+     * Gaseste wishlist in functie de user
+     * @param usernameData
+     * @return
+     */
     @Override
     public List<Book> findUsersWishlist(UsernameData usernameData) {
         User user = userRepo.findByUsername(usernameData.getUsername());

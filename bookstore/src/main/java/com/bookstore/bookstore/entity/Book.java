@@ -42,9 +42,6 @@ public class Book implements Observer {
     @Column(name = "stock")
     private Integer stock;
 
-//    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<OrderBook> orderBooks;
-
     @Lob
     @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
@@ -181,24 +178,6 @@ public class Book implements Observer {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-
-    /**
-     * Retrieves the list of order books associated with this object.
-     *
-     * @return the list of order books
-     */
-//    public List<OrderBook> getOrderBooks() {
-//        return orderBooks;
-//    }
-
-    /**
-     * Sets the list of order books associated with this object.
-     *
-//     * @param orderBooks the list of order books to be set
-     */
-//    public void setOrderBooks(List<OrderBook> orderBooks) {
-//        this.orderBooks = orderBooks;
-//    }
 
     public byte[] getImage() {
         return image;

@@ -8,7 +8,24 @@ import com.bookstore.bookstore.model.WishlistData;
 import java.util.List;
 
 public interface WishlistService {
+    /**
+     * Insereaza un wishlist
+     * @param wishlistData
+     * @return
+     */
     Wishlist insert(WishlistData wishlistData);
+
+    /**
+     * Sterge un wishlist
+     * @param wishlistData
+     * @return
+     */
     Wishlist delete(WishlistData wishlistData);
+
+    /**
+     * Gaseste wishlist in functie de user
+     * @param usernameData
+     * @return
+     */
     List<Book> findUsersWishlist(UsernameData usernameData);
 }

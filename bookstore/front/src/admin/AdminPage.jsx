@@ -33,7 +33,16 @@ class AdminPage extends React.Component {
     };
 
     handleOptionClick = (action) => {
-        this.setState({ selectedAction: action, searchResult: null, successMessage: '', errorMessage: '' });
+        this.setState({
+            selectedAction: action,
+            searchResult: null,
+            successMessage: '',
+            errorMessage: '',
+            userData: null, // Resetează userData
+            categoryData: null, // Resetează categoryData
+            formData: {}, // Resetează formData pentru a curăța formularul
+            imageFile: null // Resetează imageFile
+        });
     };
 
     handleInputChange = (e) => {
@@ -113,7 +122,7 @@ class AdminPage extends React.Component {
                         this.setState({ successMessage: 'Book was deleted successfully!' });
                         break;
                     case 'findBook':
-                        response = await axios.post('http://localhost:8080/book/find', { params: formData });
+                        response = await axios.post('http://localhost:8080/book/find', formData);
                         this.setState({ searchResult: response.data });
                         break;
                     case 'findAllBooks':
@@ -128,28 +137,9 @@ class AdminPage extends React.Component {
                         response = await axios.delete('http://localhost:8080/category/delete', { data: formData });
                         this.setState({ successMessage: 'Category was deleted successfully!' });
                         break;
-                    case 'findCategory':
-                        response = await axios.post('http://localhost:8080/category/findByName', { params: formData });
-                        this.setState({
-                            categoryData: response.data,
-                            successMessage: 'Category found successfully!'
-                        });
-                        break;
                     case 'findAllCategories':
                         response = await axios.get('http://localhost:8080/category/findAll');
                         this.setState({ categories: response.data });
-                        break;
-                    case 'updateCategory':
-                        response = await axios.put('http://localhost:8080/category/update', formData);
-                        this.setState({ successMessage: 'Category was updated successfully!' });
-                        break;
-                    case 'insertOrder':
-                        response = await axios.post('http://localhost:8080/order/insert', formData);
-                        this.setState({ successMessage: 'Order was added successfully!' });
-                        break;
-                    case 'deleteOrder':
-                        response = await axios.delete('http://localhost:8080/order/delete', { data: formData });
-                        this.setState({ successMessage: 'Order was deleted successfully!' });
                         break;
                     case 'findOrder':
                         response = await axios.get('http://localhost:8080/order/find', { params: formData });
@@ -158,10 +148,6 @@ class AdminPage extends React.Component {
                     case 'findAllOrders':
                         response = await axios.get('http://localhost:8080/order/findAll');
                         this.setState({ orders: response.data });
-                        break;
-                    case 'updateOrder':
-                        response = await axios.put('http://localhost:8080/order/update', formData);
-                        this.setState({ successMessage: 'Order was updated successfully!' });
                         break;
                     default:
                         break;
@@ -205,20 +191,10 @@ class AdminPage extends React.Component {
                     this.renderUserForm('Insert Category', ['name'])}
                 {(selectedAction === 'deleteCategory') &&
                     this.renderUserForm('Delete Category', ['name'])}
-                {(selectedAction === 'updateCategory') &&
-                    this.renderUserForm('Update Category', ['name'])}
-                {(selectedAction === 'findCategory') &&
-                    this.renderUserForm('Find Category', ['name'])}
                 {selectedAction === 'findAllCategories' && this.renderButtonForm('Find All Categories', 'Fetch Categories')}
 
-                {(selectedAction === 'insertOrder') &&
-                    this.renderUserForm('Insert Order', ['customer_fk', 'book_fk', 'quantity', 'totalPrice', 'status', 'deliveryAddress', 'orderDate', 'orderNumber'])}
-                {(selectedAction === 'deleteOrder') &&
-                    this.renderUserForm('Delete Order', ['orderNumber'])}
-                {(selectedAction === 'updateOrder') &&
-                    this.renderUserForm('Update Order', ['orderNumber', 'status'])}
                 {(selectedAction === 'findOrder') &&
-                    this.renderUserForm('Find Order', ['orderNumber'])}
+                    this.renderUserForm('Find Order', ['id'])}
                 {selectedAction === 'findAllOrders' && this.renderButtonForm('Find All Orders', 'Fetch Orders')}
 
                 {searchResult && this.renderSearchResult(searchResult)}
@@ -310,8 +286,31 @@ class AdminPage extends React.Component {
         </div>
     );
 
+    renderOrderDetails = (order) => (
+        <div className="order-details" key={order.id}>
+            <h4>Order Details (ID: {order.id}):</h4>
+            <table>
+                <tbody>
+                <tr>
+                    <td>Total:</td>
+                    <td>{order.total}</td>
+                </tr>
+                <tr>
+                    <td>Delivery Address:</td>
+                    <td>{order.address}</td>
+                </tr>
+                <tr>
+                    <td>Payment Method:</td>
+                    <td>{order.paymentMethod}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    );
+
+
     render() {
-        const { showOptions, users, books, categories, orders, userData } = this.state;
+        const { showOptions, users, books, categories, orders, userData, searchResult } = this.state;
 
         return (
             <div className="AdminPage">
@@ -366,9 +365,7 @@ class AdminPage extends React.Component {
                             <ul className="options-list">
                                 <li onClick={() => this.handleOptionClick('insertCategory')}>Insert</li>
                                 <li onClick={() => this.handleOptionClick('deleteCategory')}>Delete</li>
-                                <li onClick={() => this.handleOptionClick('findCategory')}>Find</li>
                                 <li onClick={() => this.handleOptionClick('findAllCategories')}>Find All</li>
-                                <li onClick={() => this.handleOptionClick('updateCategory')}>Update</li>
                             </ul>
                         )}
                     </div>
@@ -380,11 +377,8 @@ class AdminPage extends React.Component {
                         <h3>Order Administration</h3>
                         {showOptions === 'order' && (
                             <ul className="options-list options-list-top">
-                                <li onClick={() => this.handleOptionClick('insertOrder')}>Insert</li>
-                                <li onClick={() => this.handleOptionClick('deleteOrder')}>Delete</li>
                                 <li onClick={() => this.handleOptionClick('findOrder')}>Find</li>
                                 <li onClick={() => this.handleOptionClick('findAllOrders')}>Find All</li>
-                                <li onClick={() => this.handleOptionClick('updateOrder')}>Update</li>
                             </ul>
                         )}
                     </div>
@@ -425,19 +419,19 @@ class AdminPage extends React.Component {
                     {this.state.selectedAction === 'findAllOrders' && (
                         <div>
                             <h4>All Orders</h4>
-                            <ul>
-                                {orders.map(order => (
-                                    <li key={order.id}>{order.orderNumber}</li>
-                                ))}
-                            </ul>
+                            <div>
+                                {orders.map(order => this.renderOrderDetails(order))}
+                            </div>
                         </div>
                     )}
                     {userData && this.renderUserDetails(userData)}
+                    {/*{searchResult && this.renderSearchResult(searchResult)}*/}
                 </div>
 
             </div>
         );
     }
+
 }
 
 export default AdminPage;

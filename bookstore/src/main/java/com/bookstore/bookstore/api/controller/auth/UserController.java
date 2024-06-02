@@ -95,6 +95,9 @@ public class UserController {
         return this.userService.logIn(userPasswordData);
     }
 
+    /**
+     * Endpoint for logging out a user.
+     */
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
         // Invalidate the session

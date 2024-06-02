@@ -49,5 +49,9 @@ public interface CategoryService {
      */
     Category findCategoryByName(CategoryData categoryData);
 
+    /**
+     * Gaseste toate categoriile
+     * @return
+     */
     List<Category> findAll();
 }

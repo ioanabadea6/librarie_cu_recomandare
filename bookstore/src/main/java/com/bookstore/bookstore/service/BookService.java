@@ -57,11 +57,29 @@ public interface BookService {
      */
     List<Book> findByTitlePriceAuthorAndCategory(BookData bookData);
 
+    /**
+     * Gaseste o carte dupa id
+     * @param id
+     * @return
+     */
     Book findBookById(Integer id);
 
+    /**
+     * genereaza o carte random
+     * @return
+     */
     Book getRandomBook();
 
+    /**
+     * gaseste cartea dupa titlu si autor
+     * @param bookData
+     * @return
+     */
     Book findByTitleAuthor(BookData bookData);
 
+    /**
+     * modifica stocul atunci cand se plaseaza o comanda
+     * @param stockUpdates
+     */
     public void updateStock(Map<String, Integer> stockUpdates);
 }

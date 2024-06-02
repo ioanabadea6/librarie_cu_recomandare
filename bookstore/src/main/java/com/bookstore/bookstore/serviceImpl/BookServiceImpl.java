@@ -196,11 +196,20 @@ public class BookServiceImpl implements BookService, Subject {
         return message;
     }
 
+    /**
+     * Gaseste o carte dupa id
+     * @param id
+     * @return
+     */
     @Override
     public Book findBookById(Integer id) {
         return bookRepo.findById(id).orElse(null);
     }
 
+    /**
+     * genereaza o carte random
+     * @return
+     */
     @Override
     public Book getRandomBook() {
         List<Book> books = bookRepo.findAll();
@@ -211,11 +220,20 @@ public class BookServiceImpl implements BookService, Subject {
         return books.get(randomIndex);
     }
 
+    /**
+     * gaseste cartea dupa titlu si autor
+     * @param bookData
+     * @return
+     */
     @Override
     public Book findByTitleAuthor(BookData bookData) {
         return bookRepo.findByTitleAuthor(bookData.getTitle(), bookData.getAuthor());
     }
 
+    /**
+     * modifica stocul atunci cand se plaseaza o comanda
+     * @param stockUpdates
+     */
     public void updateStock(Map<String, Integer> stockUpdates) {
         for (Map.Entry<String, Integer> entry : stockUpdates.entrySet()) {
             Integer bookId = Integer.valueOf(entry.getKey());

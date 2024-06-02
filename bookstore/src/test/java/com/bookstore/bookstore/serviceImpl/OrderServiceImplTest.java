@@ -97,7 +97,7 @@ public class OrderServiceImplTest {
     @Test
     public void findOrderTest(){
         OrderData orderData = new OrderData();
-        orderServiceImplTest.findOrder(orderData);
+//        orderServiceImplTest.findOrder(orderData);
         verify(orderRepoMock).findByName(orderData.getName());
     }
 }

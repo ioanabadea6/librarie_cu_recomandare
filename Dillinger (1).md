@@ -60,6 +60,13 @@ Attributes:
 -book (Book): Many-to-one relationship linked via 'book_id'.
 -quantity (Integer): Quantity of books ordered.
 
+6. Wishlist Entity
+- Description: Represents a user's wishlist.
+Attributes:
+-id: A unique identifier for each wishlist entry. It is the primary key and is auto-generated.
+-user: Represents the user who owns the wishlist. It is mapped using a foreign key (user_id) to the User entity.
+-book: Represents the book added to the wishlist. It is mapped using a foreign key (book_id) to the Book entity.
+
 These relationships are typically managed by JPA (Java Persistence API) using annotations like @OneToOne, @OneToMany, @ManyToOne, and @ManyToMany. The @JoinColumn annotation is used to define the actual foreign key in the database.
 
 ![Diagrama bd]
@@ -80,7 +87,7 @@ These relationships are typically managed by JPA (Java Persistence API) using an
 - React: For creating the frontend.
 
 ## Frontend 
-- Aplicația BookStore este o platformă de comerț electronic dedicată vânzării de cărți online. Frontend-ul aplicației este dezvoltat utilizând React pentru construirea interfeței de utilizator, Redux pentru gestionarea stării aplicației și Axios pentru comunicarea cu backend-ul.Proiectul este organizat într-o structură de directoare clară, care separă componentele reutilizabile, containerele principale, logica de gestionare a stării și serviciile API. Aceasta facilitează mentenanța și extinderea ulterioară a aplicației.Utilizatorii pot naviga pe site, adăuga cărți în coș, vizualiza detalii despre produse și plasa comenzi. Autentificarea utilizatorilor permite gestionarea preferințelor personale și vizualizarea comenzilor anterioare.
+- The BookStore application is an e-commerce platform dedicated to selling books online. The frontend of the application is developed using React for building the user interface, Redux for managing the application state, and Axios for communicating with the backend. The project is organized in a clear directory structure, which separates reusable components, main containers, state management logic, and API services. This facilitates the maintenance and further extension of the application. Users can navigate the site, add books to the cart, view product details, and place orders. User authentication allows managing personal preferences and viewing previous orders.
 
 
 ## Backend

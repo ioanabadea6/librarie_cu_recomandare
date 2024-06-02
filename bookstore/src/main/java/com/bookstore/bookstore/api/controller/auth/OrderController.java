@@ -5,6 +5,8 @@ import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.OrderData;
 import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.service.OrderService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +53,16 @@ public class OrderController {
         return orderData;
     }
 
+    @GetMapping("/find")
+    public ResponseEntity<Order> findOrder(@RequestParam Integer id) {
+        Order order = orderService.findOrderById(id);
+        if (order != null) {
+            return ResponseEntity.ok(order);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @GetMapping("/findAll")
     public List<Order> findAll(){
         return orderService.findAll();
@@ -78,6 +90,12 @@ public class OrderController {
         return orderData;
     }
 
+    /**
+     * Endpoint for finding an order by username.
+     *
+     * @param usernameData
+     * @return The found OrderData object.
+     */
     @PostMapping("/findByUsername")
     public List<Order> findByUsername(@RequestBody UsernameData usernameData) {
         return orderService.findByUsername(usernameData);

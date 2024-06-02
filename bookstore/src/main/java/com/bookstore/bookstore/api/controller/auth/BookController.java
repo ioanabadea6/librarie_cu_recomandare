@@ -80,7 +80,6 @@ public class BookController {
     /**
      * Endpoint for updating a book.
      *
-     *
      * @return The updated BookData object.
      */
     @PutMapping("/update")
@@ -134,6 +133,11 @@ public class BookController {
         return bookService.findBookById(id);
     }
 
+    /**
+     * Retrieves a random book.
+     *
+     * @return the book
+     */
     @GetMapping("/random")
     public Book getRandomBook() {
         Book randomBook = bookService.getRandomBook();
@@ -143,11 +147,22 @@ public class BookController {
         return randomBook;
     }
 
+    /**
+     * Retrieves a list of books that match the given criteria of title, author
+     *
+     * @param bookData the data representing the criteria for searching books
+     * @return a list of books that match the specified criteria
+     */
     @GetMapping("/findByTitleAuthor")
     public Book findByTitleAuthor(@RequestBody BookData bookData) {
         return bookService.findByTitleAuthor(bookData);
     }
 
+    /**
+     * Endpoint for updating the stock.
+     *
+     * @return The updated BookData object.
+     */
     @PutMapping("/updateStock")
     public ResponseEntity<String> updateStock(@RequestBody Map<String, Integer> stockUpdates) {
         try {

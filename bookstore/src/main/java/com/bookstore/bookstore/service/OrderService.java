@@ -42,7 +42,23 @@ public interface OrderService {
      */
     Order findOrder(OrderData orderData);
 
+    /**
+     * Gaseste o comanda in functie de id.
+     * @param id
+     * @return
+     */
+    Order findOrderById(Integer id);
+
+    /**
+     * gaseste toate comenzile
+     * @return
+     */
     List<Order> findAll();
 
+    /**
+     * Gaseste comenzile unui user
+     * @param usernameData
+     * @return
+     */
     List<Order> findByUsername(UsernameData usernameData);
 }

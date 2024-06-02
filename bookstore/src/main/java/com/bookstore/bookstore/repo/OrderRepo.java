@@ -31,5 +31,12 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 //    Order findById(Integer id);
     List<Order> findByUser(User user);
 
+    /**
+     *  Find an order by id
+     * @param id
+     * @return
+     */
+    Order findById(Integer id);
+
 
 }

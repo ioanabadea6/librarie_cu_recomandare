@@ -98,6 +98,10 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    /**
+     * Gaseste toate categoriile
+     * @return
+     */
     @Override
     public List<Category> findAll(){
         return categoryRepo.findAll();
