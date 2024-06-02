@@ -42,16 +42,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order insertOrder(OrderData orderData) {
         User user = userRepo.findUserByEmail(orderData.getEmail());
-        Order order = findOrder(orderData);
-        if(order != null){
-            order.setName(orderData.getName());
-            order.setEmail(orderData.getEmail());
-            order.setContactNumber(orderData.getContactNumber());
-            order.setPaymentMethod(orderData.getPaymentMethod());
-            order.setTotal(orderData.getTotal());
-            order.setAddress(orderData.getAddress());
-            order.setUser(user);
-        }
+        Order order = new Order();
+        order.setName(orderData.getName());
+        order.setEmail(orderData.getEmail());
+        order.setContactNumber(orderData.getContactNumber());
+        order.setPaymentMethod(orderData.getPaymentMethod());
+        order.setTotal(orderData.getTotal());
+        order.setAddress(orderData.getAddress());
+        order.setUser(user);
         return orderRepo.save(order);
     }
 

@@ -11,8 +11,11 @@ const Cart = () => {
     const [paymentMethod, setPaymentMethod] = useState('Credit Card');
     const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [error, setError] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
+        const authStatus = localStorage.getItem('isAuthenticated') === 'true';
+        setIsAuthenticated(authStatus);
         fetchCartItems();
     }, []);
 
@@ -74,9 +77,9 @@ const Cart = () => {
     const placeOrder = async (event) => {
         event.preventDefault();
         try {
-            const userId = localStorage.getItem('userId');
+            const username = localStorage.getItem('username');
 
-            if (!userId) {
+            if (!username) {
                 alert('User is not logged in');
                 return;
             }
@@ -86,7 +89,7 @@ const Cart = () => {
                     bookId: item.book.id,
                     quantity: item.quantity
                 })),
-                userId: parseInt(userId, 10),
+                // userId: parseInt(userId, 10),
                 name: name,
                 email: email,
                 contactNumber: contactNumber,
@@ -147,7 +150,11 @@ const Cart = () => {
                 <h2>
                     <Link to='/book' className="books">Books</Link>
                     <Link to='/blog' className="blog">Blog</Link>
-                    <Link to='/account' className="account">Account</Link>
+                    {isAuthenticated ? (
+                        <Link to='/account' className="account">Account</Link>
+                    ) : (
+                        <Link to='/login' className="login">Login</Link>
+                    )}
                 </h2>
             </div>
 
