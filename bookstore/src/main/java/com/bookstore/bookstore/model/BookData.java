@@ -2,6 +2,7 @@ package com.bookstore.bookstore.model;
 
 import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.entity.Order;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -15,6 +16,25 @@ public class BookData {
     private String description;
     private Integer price;
     private Integer stock;
+    private MultipartFile image;
+
+    /**
+     * Returnează fișierul imagine asociat cărții.
+     *
+     * @return Fișierul imagine asociat cărții.
+     */
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    /**
+     * Setează fișierul imagine asociat cărții.
+     *
+     * @param image Fișierul imagine asociat cărții.
+     */
+    public void setImageFile(MultipartFile image) {
+        this.image = image;
+    }
 
     /**
      * Returnează titlul cărții.

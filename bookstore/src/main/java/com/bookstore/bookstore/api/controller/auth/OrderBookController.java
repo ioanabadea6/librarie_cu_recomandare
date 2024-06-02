@@ -1,7 +1,10 @@
 package com.bookstore.bookstore.api.controller.auth;
 
+import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.entity.OrderBook;
+import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.model.OrderBookData;
+import com.bookstore.bookstore.service.BookService;
 import com.bookstore.bookstore.service.OrderBookService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,7 @@ public class OrderBookController {
     /**
      * Inserts an order book into the system.
      *
-     * @param orderBookData The data of the order book to be inserted.
+//     * @param orderBookData The data of the order book to be inserted.
      * @return The inserted order book data.
      */
     @PostMapping("/insert")
@@ -34,7 +37,7 @@ public class OrderBookController {
      * @param orderBookData The data of the order book to find.
      * @return The found order book data.
      */
-    @GetMapping("/find")
+    @PostMapping("/find")
     public OrderBookData findOrderBook(@RequestBody OrderBookData orderBookData){
         this.orderBookService.findOrderBook(orderBookData);
         return orderBookData;
@@ -43,11 +46,16 @@ public class OrderBookController {
     /**
      * Deletes an order book from the system.
      *
-     * @param orderBookData The data of the order book to be deleted.
+//     * @param orderBookData The data of the order book to be deleted.
      */
-    @DeleteMapping("/delete")
-    public void deleteOrderBook(@RequestBody OrderBookData orderBookData){
-        this.orderBookService.deleteOrderBook(orderBookData);
+    @DeleteMapping("/deleteByBookId/{bookId}")
+    public void deleteByBookId(@PathVariable Integer bookId) {
+        orderBookService.deleteByBookId(bookId);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public void deleteAll(){
+        this. orderBookService.deleteAll();
     }
 
     /**
@@ -72,4 +80,8 @@ public class OrderBookController {
         return this.orderBookService.findAll();
     }
 
+//    @GetMapping("/findByOrderId/{orderId}")
+//    public List<OrderBook> findByOrderId(@PathVariable Integer orderId) {
+//        return orderBookService.findByOrderId(orderId);
+//    }
 }

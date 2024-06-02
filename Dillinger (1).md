@@ -8,7 +8,7 @@ This project is a web-based bookstore application that allows users to browse, s
 - Book Catalog: Users can browse and search the catalog by various criteria (title, author, genre, etc.).
 - Book Details: Detailed information about books, including descriptions, ratings, and reviews.
 - Shopping Cart: Users can add books to their shopping cart and proceed to checkout.
-- Recommendations: The system recommends books based on the user's preferences and previous interactions with the application, also based on a form.
+- Recommendations: The system recommends random books.
 - Admin Panel: Admin users can add, edit, or remove books, manage orders, and view user activities.
 
 ## Data base
@@ -23,7 +23,6 @@ Attributes:
 -description (String): A description of the book.
 -price (Integer): The price of the book in some unit of currency.
 -stock (Integer): The quantity of this book available in stock.
--orderBooks (List<OrderBook>): A list of OrderBook entities associated with this book, indicating a one-to-many relationship.
 
 2  Category Entity
 - Description: Represents a category of books.
@@ -41,8 +40,6 @@ Attributes:
 -contactNumber (String): Stored in the database column 'contactnumber'.
 -paymentMethod (String): Stored in the database column 'paymentmethod'.
 -total (Integer): Stored in the database column 'total'.
--productDetails (String): Stored in the database column 'productdetails'.
--createdBy (String): Stored in the database column 'createdby'.
 -user (User): Many-to-one relationship linked via 'user_id'.
 
 4  User Entity
@@ -60,13 +57,18 @@ Attributes:
 - Description: Represents a many-to-many relationship between Orders and Books.
 Attributes:
 -id (Integer): Stored in the database column 'id'.
--order (Order): Many-to-one relationship linked via 'order_id'.
 -book (Book): Many-to-one relationship linked via 'book_id'.
 -quantity (Integer): Quantity of books ordered.
 
 These relationships are typically managed by JPA (Java Persistence API) using annotations like @OneToOne, @OneToMany, @ManyToOne, and @ManyToMany. The @JoinColumn annotation is used to define the actual foreign key in the database.
 
-![Diagrama bd](https://drive.google.com/file/d/1PdKTV5L2hHsMYMA69wM1LwvP26YV26mW/view?usp=drive_link)
+![Diagrama bd]
+("E:\An3\PS\librarie_cu_recomandare\diagrama_bd.png")
+("E:\An3\PS\librarie_cu_recomandare\bookstore.png")
+![Admin]
+("E:\An3\PS\librarie_cu_recomandare\admin.png")
+![User]
+("E:\An3\PS\librarie_cu_recomandare\user.png")
 
 ## Technology Stack
 
@@ -75,136 +77,66 @@ These relationships are typically managed by JPA (Java Persistence API) using an
 - MySQL: For the database to store book and user information.
 - Spring Security: For authentication and authorization.
 - Maven: For project management and build tool.
+- React: For creating the frontend.
+
+## Frontend 
+- Aplicația BookStore este o platformă de comerț electronic dedicată vânzării de cărți online. Frontend-ul aplicației este dezvoltat utilizând React pentru construirea interfeței de utilizator, Redux pentru gestionarea stării aplicației și Axios pentru comunicarea cu backend-ul.Proiectul este organizat într-o structură de directoare clară, care separă componentele reutilizabile, containerele principale, logica de gestionare a stării și serviciile API. Aceasta facilitează mentenanța și extinderea ulterioară a aplicației.Utilizatorii pot naviga pe site, adăuga cărți în coș, vizualiza detalii despre produse și plasa comenzi. Autentificarea utilizatorilor permite gestionarea preferințelor personale și vizualizarea comenzilor anterioare.
+
 
 ## Backend
 - Endpoints
 - Book: /book
 Endpoints
---Insert Book
-Method: POST
-Path: /insert
-Description: Adds a new book to the system.
-Request Body: BookData (represents the book details to be added)
---Find Book
-Method: GET
-Path: /find
-Description: Retrieves a book based on criteria.
-Request Body: BookData (criteria for finding the book)
---Delete Book
-Method: DELETE
-Path: /delete
-Description: Deletes a specified book from the system.
-Request Body: BookData (details of the book to be deleted)
---Update Book
-Method: PUT
-Path: /update
-Description: Updates details of an existing book.
-Request Body: BookData (new details of the book)
---Find All Books
-Method: GET
-Path: /findAll
-Description: Retrieves all books available in the system.
---Find Books by Title, Price, Author, and Category
-Method: GET
-Path: /findByTitlePriceAuthorAndCategory
-Description: Searches books based on title, price, author, and category criteria.
-Request Body: BookData (search criteria)
+POST/insert: Adds a new book to the system.
+POST/find: Retrieves a book based on criteria.
+DELETE/delete: Deletes a specified book from the system.
+PUT/update: Updates details of an existing book.
+GET/findAll: Retrieves all books available in the system.
+GET/{id}: Retrieves a book based on id.
+GET/random: Retrieves a random book.
+GET/findByTitlePriceAuthorAndCategory: Searches books based on title, price, author, and category criteria.
+GET/findByTitleAuthor: Searches books based on title, author.
+PUT/updateStock: Updates stock of an existing book.
 
 - Category: /category
---Insert Category
-Method: POST
-Path: /insert
-Description: Adds a new category to the system.
-Request Body: CategoryData (details of the category to be added)
---Find Category
-Method: GET
-Path: /find
-Description: Retrieves a category based on specified criteria.
-Request Body: CategoryData (criteria for finding the category)
---Delete Category
-Method: DELETE
-Path: /delete
-Description: Deletes a specified category from the system.
+POST/insert: Adds a new category to the system.
+GET/find: Retrieves a category based on specified criteria.
+DELETE/delete: Deletes a specified category from the system.
 Request Body: CategoryData (details of the category to be deleted)
---Update Category
-Method: PUT
-Path: /update
-Description: Updates details of an existing category.
-Request Body: CategoryData (new details of the category)
+PUT/update: Updates details of an existing category.
+GET/findAll: Retrieves all categories available in the system.
 
 - OrderBook: /orderBook
---Insert Order Book
-Method: POST
-Path: /insert
-Description: Adds a new order book record to the system.
-Request Body: OrderBookData (details of the order book to be added)
---Find Order Book
-Method: GET
-Path: /find
-Description: Retrieves an order book based on specified criteria.
-Request Body: OrderBookData (criteria for finding the order book)
---Delete Order Book
-Method: DELETE
-Path: /delete
-Description: Removes a specified order book from the system.
-Request Body: OrderBookData (details of the order book to be deleted)
---Update Order Book
-Method: PUT
-Path: /update
-Description: Updates details of an existing order book.
-Request Body: OrderBookData (new details of the order book)
---Find All Order Books
-Method: GET
-Path: /findAll
-Description: Retrieves all order books in the system.
+POST/insert: Adds a new order book record to the system.
+POST/find: Retrieves an order book based on specified criteria.
+DELETE
+Path:/deleteByBookId/{bookId}: Removes a specified order book from the system.
+Path:/deleteAll: Removes all orderBooks from the system.
+PUT/update: Updates details of an existing order book.
+GET/findAll: Retrieves all order books in the system.
 
 - Order: /order
---Insert Order
-Method: POST
-Path: /insert
-Description: Creates a new order in the system.
-Request Body: OrderData (details of the new order)
---Find Order
-Method: GET
-Path: /find
-Description: Retrieves an order based on specified criteria.
-Request Body: OrderData (criteria for finding the order)
---Delete Order
-Method: DELETE
-Path: /delete
-Description: Deletes an existing order from the system.
-Request Body: OrderData (details of the order to be deleted)
---Update Order
-Method: PUT
-Path: /update
-Description: Updates an existing order with new information.
-Request Body: OrderData (new details for the order)
+POST/insert: Creates a new order in the system.
+POST/find: Retrieves an order based on specified criteria.
+DELETE/delete: Deletes an existing order from the system.
+PUT/update: Updates an existing order with new information.
+GET/findAll: Retrieves all ordes in the system.
 
 - User: /auth
---Register User
-Method: POST
-Path: /insert
-Description: Registers a new user in the system.
-Request Body: UserData (registration details)
---Find User
-Method: GET
-Path: /find
-Description: Retrieves a user based on the provided username data.
-Request Body: UsernameData (user identification data)
---Delete User
-Method: DELETE
-Path: /delete
-Description: Removes a user from the system based on provided username data.
-Request Body: UsernameData (user identification data)
---Update User
-Method: PUT
-Path: /update
-Description: Updates details of an existing user.
-Request Body: UserData (new user details)
---Find All Users
-Method: GET
-Path: /findAll
-Description: Retrieves a list of all users in the system.
+POST/insert: Registers a new user in the system.
+POST/find: Retrieves a user based on the provided username data.
+DELETE/delete: Removes a user from the system based on provided username data.
+PUT/update: Updates details of an existing user.
+PUT/updatePass: Updates password of an existing user.
+GET/findAll: Retrieves a list of all users in the system.
+PUT/findAll: Retrieves all users in the system.
+POST/login: Login a user.
+POST/logout: logout a user.
+
+- Wishlist: /wishlist
+POST/insert: Adds a book to the user's favorite list.
+DELETE/delete: Removes a book from the user's favorite list.
+POST/getFavorite: Retrieves the wishlist books for a user.
 
 - Observer pattern
 
@@ -300,8 +232,6 @@ UserServiceImplTest
 -Tests the retrieval of a user by username, verifying that the findByUsername method of the UserRepo is used to locate the user.
 6.findAll()
 -Tests retrieving all users from the repository, verifying that the findAll method of the UserRepo is correctly called.
-## Frontend
 
-## Bibliography
 
 

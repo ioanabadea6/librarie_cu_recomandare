@@ -2,6 +2,7 @@ package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.entity.OrderBook;
+import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.model.OrderBookData;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,10 @@ public interface OrderBookService {
     /**
      * Deletes an order book from the system.
      *
-     * @param orderBookData The data of the order book to be deleted.
+//     * @param orderBookData The data of the order book to be deleted.
      * @return The deleted order book.
      */
-    OrderBook deleteOrderBook(OrderBookData orderBookData);
+    public void deleteByBookId(Integer bookId);
     /**
      * Updates an existing order book in the system.
      *
@@ -43,5 +44,8 @@ public interface OrderBookService {
      */
     List<OrderBook> findAll();
 
+//    List<OrderBook> findByOrderId(Integer orderID);
+
+    void deleteAll();
 
 }

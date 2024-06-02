@@ -1,9 +1,12 @@
 package com.bookstore.bookstore.api.controller.auth;
 
 import com.bookstore.bookstore.entity.Category;
+import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.CategoryData;
 import com.bookstore.bookstore.serviceImpl.CategoryServiceImpl;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller class for managing category-related operations.
@@ -47,6 +50,18 @@ public class CategoryController {
     }
 
     /**
+     * Endpoint for finding a category by name.
+     *
+     * @param categoryData The CategoryData object representing the category to be found.
+     * @return The found CategoryData object.
+     */
+    @PostMapping("/findByName")
+    public CategoryData findCategoryByName(@RequestBody CategoryData categoryData) {
+        this.categoryServiceImpl.findCategoryByName(categoryData);
+        return categoryData;
+    }
+
+    /**
      * Endpoint for deleting a category.
      *
      * @param categoryData The CategoryData object representing the category to be deleted.
@@ -66,5 +81,10 @@ public class CategoryController {
     public CategoryData updateCategory(@RequestBody CategoryData categoryData) {
         this.categoryServiceImpl.updateCategory(categoryData);
         return categoryData;
+    }
+
+    @GetMapping("/findAll")
+    public List<Category> findAll(){
+        return this.categoryServiceImpl.findAll();
     }
 }

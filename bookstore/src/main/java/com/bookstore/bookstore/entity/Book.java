@@ -1,6 +1,7 @@
 package com.bookstore.bookstore.entity;
 
 import com.bookstore.bookstore.ObserverDesignPattern.Observer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,9 +30,10 @@ public class Book implements Observer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_fk", nullable = false)
+    @JsonIgnore
     private Category category;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
     @Column(name = "price")
@@ -40,8 +42,12 @@ public class Book implements Observer {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderBook> orderBooks;
+//    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<OrderBook> orderBooks;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     /**
      * Constructor implicit pentru Book.
@@ -181,18 +187,28 @@ public class Book implements Observer {
      *
      * @return the list of order books
      */
-    public List<OrderBook> getOrderBooks() {
-        return orderBooks;
-    }
+//    public List<OrderBook> getOrderBooks() {
+//        return orderBooks;
+//    }
 
     /**
      * Sets the list of order books associated with this object.
      *
-     * @param orderBooks the list of order books to be set
+//     * @param orderBooks the list of order books to be set
      */
-    public void setOrderBooks(List<OrderBook> orderBooks) {
-        this.orderBooks = orderBooks;
+//    public void setOrderBooks(List<OrderBook> orderBooks) {
+//        this.orderBooks = orderBooks;
+//    }
+
+    public byte[] getImage() {
+        return image;
     }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+
 
     /**
      * Metodă de actualizare a cărții, implementată din interfața Observer.
@@ -216,7 +232,7 @@ public class Book implements Observer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(category, book.category) && Objects.equals(description, book.description) && Objects.equals(price, book.price) && Objects.equals(stock, book.stock) && Objects.equals(orderBooks, book.orderBooks);
+        return image == book.image && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(category, book.category) && Objects.equals(description, book.description) && Objects.equals(price, book.price) && Objects.equals(stock, book.stock);
     }
 
     /**
@@ -227,6 +243,6 @@ public class Book implements Observer {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, category, description, price, stock, orderBooks);
+        return Objects.hash(id, title, author, category, description, price, stock, image);
     }
 }

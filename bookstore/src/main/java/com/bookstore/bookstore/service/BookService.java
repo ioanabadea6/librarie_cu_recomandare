@@ -4,6 +4,7 @@ import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.model.BookData;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interfața pentru serviciul de gestionare a cărților.
@@ -55,4 +56,12 @@ public interface BookService {
      * @return a list of books that match the specified criteria
      */
     List<Book> findByTitlePriceAuthorAndCategory(BookData bookData);
+
+    Book findBookById(Integer id);
+
+    Book getRandomBook();
+
+    Book findByTitleAuthor(BookData bookData);
+
+    public void updateStock(Map<String, Integer> stockUpdates);
 }

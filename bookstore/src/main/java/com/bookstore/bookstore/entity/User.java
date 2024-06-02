@@ -11,33 +11,29 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "user")
-public class User implements Observer {
+public class User implements Observer, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "contactNumber")
-    private String contactNumber;
-
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "role")
     private String role;
-
-    public User() {
-    }
 
 
     /**
@@ -95,24 +91,6 @@ public class User implements Observer {
     }
 
     /**
-     * Returnează numărul de contact al utilizatorului.
-     *
-     * @return Numărul de contact al utilizatorului.
-     */
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    /**
-     * Setează numărul de contact al utilizatorului.
-     *
-     * @param contactNumber Numărul de contact al utilizatorului.
-     */
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    /**
      * Returnează adresa de email a utilizatorului.
      *
      * @return Adresa de email a utilizatorului.
@@ -166,6 +144,7 @@ public class User implements Observer {
         this.role = role;
     }
 
+
     /**
      * Metodă de actualizare, implementată din interfața Observer.
      *
@@ -198,6 +177,8 @@ public class User implements Observer {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, contactNumber, email, password, role);
+        return Objects.hash(id, name, email, password, role);
     }
+
+
 }

@@ -3,9 +3,15 @@ package com.bookstore.bookstore.api.controller.auth;
 import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.service.BookService;
+import com.bookstore.bookstore.serviceImpl.CategoryServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Controller class for managing book-related operations.
@@ -27,13 +33,26 @@ public class BookController {
     /**
      * Endpoint for inserting a new book.
      *
-     * @param bookData The BookData object representing the book to be inserted.
+     *
      * @return The inserted BookData object.
      */
     @PostMapping("/insert")
-    public BookData insertBook(@RequestBody BookData bookData) {
+    public void insertBook(@RequestParam("title") String title,
+                           @RequestParam("author") String author,
+                           @RequestParam("category") Integer category_fk,
+                           @RequestParam("description") String description,
+                           @RequestParam("price") Integer price,
+                           @RequestParam("stock") Integer stock,
+                           @RequestParam("image") MultipartFile image) {
+        BookData bookData = new BookData();
+        bookData.setTitle(title);
+        bookData.setAuthor(author);
+        bookData.setCategory_fk(category_fk);
+        bookData.setDescription(description);
+        bookData.setPrice(price);
+        bookData.setStock(stock);
+        bookData.setImageFile(image);
         this.bookService.insertBook(bookData);
-        return bookData;
     }
 
     /**
@@ -42,7 +61,7 @@ public class BookController {
      * @param bookData The BookData object representing the book to be found.
      * @return The found BookData object.
      */
-    @GetMapping("/find")
+    @PostMapping("/find")
     public BookData findBook(@RequestBody BookData bookData) {
         this.bookService.findBook(bookData);
         return bookData;
@@ -61,13 +80,26 @@ public class BookController {
     /**
      * Endpoint for updating a book.
      *
-     * @param bookData The BookData object representing the book to be updated.
+     *
      * @return The updated BookData object.
      */
     @PutMapping("/update")
-    public BookData updateBook(@RequestBody BookData bookData) {
+    public void updateBook(@RequestParam("title") String title,
+                           @RequestParam("author") String author,
+                           @RequestParam("category") Integer category_fk,
+                           @RequestParam("description") String description,
+                           @RequestParam("price") Integer price,
+                           @RequestParam("stock") Integer stock,
+                           @RequestParam("image") MultipartFile image) {
+        BookData bookData = new BookData();
+        bookData.setTitle(title);
+        bookData.setAuthor(author);
+        bookData.setCategory_fk(category_fk);
+        bookData.setDescription(description);
+        bookData.setPrice(price);
+        bookData.setStock(stock);
+        bookData.setImageFile(image);
         this.bookService.updateBook(bookData);
-        return bookData;
     }
 
     /**
@@ -90,4 +122,40 @@ public class BookController {
     public List<Book> findByTitlePriceAuthorAndCategory(@RequestBody BookData bookData) {
         return this.bookService.findByTitlePriceAuthorAndCategory(bookData);
     }
+
+    /**
+     * Retrieves a book by its ID.
+     *
+     * @param id the ID of the book to retrieve
+     * @return the book with the specified ID
+     */
+    @GetMapping("/{id}")
+    public Book getBookById(@PathVariable Integer id) {
+        return bookService.findBookById(id);
+    }
+
+    @GetMapping("/random")
+    public Book getRandomBook() {
+        Book randomBook = bookService.getRandomBook();
+        if (randomBook == null) {
+            throw new RuntimeException("No books available");
+        }
+        return randomBook;
+    }
+
+    @GetMapping("/findByTitleAuthor")
+    public Book findByTitleAuthor(@RequestBody BookData bookData) {
+        return bookService.findByTitleAuthor(bookData);
+    }
+
+    @PutMapping("/updateStock")
+    public ResponseEntity<String> updateStock(@RequestBody Map<String, Integer> stockUpdates) {
+        try {
+            bookService.updateStock(stockUpdates);
+            return ResponseEntity.ok("Stock updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating stock: " + e.getMessage());
+        }
+    }
+
 }

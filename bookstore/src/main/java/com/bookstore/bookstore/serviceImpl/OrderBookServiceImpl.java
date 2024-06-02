@@ -2,10 +2,12 @@ package com.bookstore.bookstore.serviceImpl;
 
 import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.entity.OrderBook;
+import com.bookstore.bookstore.model.BookData;
 import com.bookstore.bookstore.model.OrderBookData;
 import com.bookstore.bookstore.repo.BookRepo;
 import com.bookstore.bookstore.repo.OrderBookRepo;
 import com.bookstore.bookstore.repo.OrderRepo;
+import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.OrderBookService;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +41,9 @@ public class OrderBookServiceImpl implements OrderBookService {
      */
     @Override
     public OrderBook insertOrderBook(OrderBookData orderBookData) {
+        Book book = bookRepo.findById(orderBookData.getBook_id()).orElseThrow(() -> new RuntimeException("Book not found"));
         OrderBook orderBook = new OrderBook();
-        orderBook.setBook(bookRepo.findBookById(orderBookData.getBook_id()));
-        orderBook.setOrder(orderRepo.findById(orderBookData.getOrder_id()));
+        orderBook.setBook(book);
         orderBook.setQuantity(orderBookData.getQuantity());
         return orderBookRepo.save(orderBook);
     }
@@ -49,15 +51,17 @@ public class OrderBookServiceImpl implements OrderBookService {
     /**
      * Deletes an order book from the system.
      *
-     * @param orderBookData The data of the order book to be deleted.
+//     * @param orderBookData The data of the order book to be deleted.
      * @return The deleted order book.
      */
     @Override
-    public OrderBook deleteOrderBook(OrderBookData orderBookData) {
-        OrderBook orderBook = new OrderBook();
-        orderBook = findOrderBook(orderBookData);
+    public void deleteByBookId(Integer bookId) {
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        OrderBook orderBook = orderBookRepo.findByBook(book);
+
         orderBookRepo.delete(orderBook);
-        return orderBook;
     }
 
     /**
@@ -68,9 +72,9 @@ public class OrderBookServiceImpl implements OrderBookService {
      */
     @Override
     public OrderBook updateOrderBook(OrderBookData orderBookData) {
-        OrderBook orderBook = findOrderBook(orderBookData);
-        orderBook.setBook(bookRepo.findBookById(orderBookData.getBook_id()));
-        orderBook.setOrder(orderRepo.findById(orderBookData.getOrder_id()));
+        Book book = bookRepo.findById(orderBookData.getBook_id()).orElseThrow(() -> new RuntimeException("Book not found"));
+        OrderBook orderBook = new OrderBook();
+        orderBook.setBook(book);
         orderBook.setQuantity(orderBookData.getQuantity());
         return orderBookRepo.save(orderBook);
     }
@@ -83,8 +87,9 @@ public class OrderBookServiceImpl implements OrderBookService {
      */
     @Override
     public OrderBook findOrderBook(OrderBookData orderBookData) {
-        OrderBook orderBook = new OrderBook();
-        orderBook = orderBookRepo.findByOrderId(orderBookData.getOrder_id());
+        Book book = bookRepo.findById(orderBookData.getBook_id()).orElseThrow(() -> new RuntimeException("Book not found"));
+        OrderBook orderBook = orderBookRepo.findByBook(book);
+        orderBookRepo.delete(orderBook);
         return orderBook;
     }
 
@@ -97,6 +102,17 @@ public class OrderBookServiceImpl implements OrderBookService {
     public List<OrderBook> findAll() {
         return orderBookRepo.findAll();
     }
+
+//    @Override
+//    public List<OrderBook> findByOrderId(Integer orderId) {
+//        return orderBookRepo.findByOrderId(orderId);
+//    }
+
+    @Override
+    public void deleteAll() {
+        orderBookRepo.deleteAll();
+    }
+
 
 
 }

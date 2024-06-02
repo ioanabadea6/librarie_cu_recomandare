@@ -12,15 +12,16 @@ import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.BookService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class BookServiceImpl implements BookService, Subject {
     private BookRepo bookRepo;
     private List<Observer> observers;
     private CategoryRepo categoryRepo;
+
+    private Random random = new Random();
 
     /**
      * Constructs a new instance of BookServiceImpl with the specified BookRepo and CategoryRepo.
@@ -54,8 +55,14 @@ public class BookServiceImpl implements BookService, Subject {
         book.setDescription(bookData.getDescription());
         book.setPrice(bookData.getPrice());
         book.setStock(bookData.getStock());
+        try {
+            book.setImage(bookData.getImage().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         this.attach(book);
-        return bookRepo.save(book);
+        bookRepo.save(book);
+        return book;
     }
 
     /**
@@ -67,10 +74,6 @@ public class BookServiceImpl implements BookService, Subject {
     public Book deleteBook(BookData bookData) {
         Book book = new Book();
         book = findBook(bookData);
-//        book.setAuthor(bookData.getAuthor());
-//        book.setCategory(bookData.getCategory());
-//        book.setDescription(bookData.getDescription());
-//        book.setPrice(bookData.getPrice());
         bookRepo.delete(book);
         return book;
     }
@@ -191,6 +194,36 @@ public class BookServiceImpl implements BookService, Subject {
     public String createNotifyMessageStock(BookData bookdata) {
         String message = "Cartea si-a modificat stocul in " + bookdata.getStock();
         return message;
+    }
+
+    @Override
+    public Book findBookById(Integer id) {
+        return bookRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Book getRandomBook() {
+        List<Book> books = bookRepo.findAll();
+        if (books.isEmpty()) {
+            return null;
+        }
+        int randomIndex = random.nextInt(books.size());
+        return books.get(randomIndex);
+    }
+
+    @Override
+    public Book findByTitleAuthor(BookData bookData) {
+        return bookRepo.findByTitleAuthor(bookData.getTitle(), bookData.getAuthor());
+    }
+
+    public void updateStock(Map<String, Integer> stockUpdates) {
+        for (Map.Entry<String, Integer> entry : stockUpdates.entrySet()) {
+            Integer bookId = Integer.valueOf(entry.getKey());
+            Integer newStock = entry.getValue();
+            Book book = bookRepo.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+            book.setStock(newStock);
+            bookRepo.save(book);
+        }
     }
 
 }

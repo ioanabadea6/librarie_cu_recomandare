@@ -1,0 +1,151 @@
+.Books {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.BooksHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    /*background-color: transparent;*/
+    background: transparent;
+    color: #6633FF;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #6633FF;
+    flex: 1;
+    padding-left: 20px;
+    font-family: "Brush Script MT";
+}
+
+.header-right h2 {
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    font-size: 24px;
+    color: #6633FF;
+    flex: 1;
+    /*padding-left: 20px;*/
+    font-family: "Brush Script MT";
+}
+
+.header-right a {
+    text-decoration: none;
+    color: #6633FF;
+    /*margin-left: 20px; !* Adds space between the links *!*/
+}
+
+.header-right a:hover {
+    text-decoration: underline;
+    color: #6633FF;
+}
+
+.BooksBody {
+    display: flex;
+}
+
+.BooksSidebar {
+    flex: 1;
+    padding: 20px;
+    /*border-right: 1px solid #ccc;*/
+}
+
+.BooksSearch input, .BooksFilters input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.BooksSearch button, .BooksFilters button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #6633FF;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.BooksSearch button:hover, .BooksFilters button:hover {
+    background-color: #6633FF;
+}
+
+.BooksList {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.BookCardLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.BookCard {
+    /*border: 1px solid #ccc;*/
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    width: 200px;
+    height: 350px;
+    cursor: pointer;
+}
+
+.BookCard:hover {
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+}
+
+.BookImage {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.PlaceholderImage {
+    width: 100%;
+    height: 150px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.Pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.Pagination button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border-radius: 4px;
+    color: black;
+}
+
+.Pagination button.active {
+    background-color: #6633FF;
+    color: black;
+    border-color: #6633FF;
+}
+
+.Pagination button:hover {
+    background-color: #6633FF;
+    color: #fff;
+}

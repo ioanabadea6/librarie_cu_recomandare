@@ -21,9 +21,6 @@ public class OrderServiceImplTest {
     @Mock
     private UserRepo userRepoMock;
 
-    @Mock
-    private OrderBookRepo orderBookRepoMock;
-
     private OrderServiceImpl orderServiceImplTest;
 
     /**
@@ -32,7 +29,7 @@ public class OrderServiceImplTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        orderServiceImplTest = new OrderServiceImpl(orderRepoMock, userRepoMock, orderBookRepoMock);
+        orderServiceImplTest = new OrderServiceImpl(orderRepoMock, userRepoMock);
     }
 
     /**

@@ -3,6 +3,8 @@ package com.bookstore.bookstore.service;
 import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.model.CategoryData;
 
+import java.util.List;
+
 /**
  * Interfața pentru serviciul de gestionare a categoriilor.
  */
@@ -38,4 +40,14 @@ public interface CategoryService {
      * @return Categoria găsită sau null dacă nu a fost găsită nicio categorie.
      */
     Category findCategory(CategoryData categoryData);
+
+    /**
+     * Caută o categorie în baza de date după numele său.
+     *
+     * @param categoryData Obiectul care conține datele categoriei pentru căutare.
+     * @return Categorie găsită sau {@code null} dacă nu există o categorie cu numele respectiv.
+     */
+    Category findCategoryByName(CategoryData categoryData);
+
+    List<Category> findAll();
 }

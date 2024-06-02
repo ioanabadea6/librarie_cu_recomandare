@@ -6,7 +6,6 @@ package com.bookstore.bookstore.model;
 public class UserData {
     private String username;
     private String name;
-    private String contactNumber;
     private String email;
     private String password;
     private String role;
@@ -46,24 +45,6 @@ public class UserData {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Returnează numărul de contact al utilizatorului.
-     *
-     * @return Numărul de contact al utilizatorului.
-     */
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    /**
-     * Setează numărul de contact al utilizatorului.
-     *
-     * @param contactNumber Numărul de contact al utilizatorului.
-     */
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
     }
 
     /**

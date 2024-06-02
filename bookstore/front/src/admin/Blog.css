@@ -1,0 +1,108 @@
+.Blog {
+    text-align: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/public/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.BlogHeader {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.BlogHeader h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #6633FF;
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    font-family: "Brush Script MT";
+}
+
+.BlogHeader h2 {
+    margin: 0;
+    display: flex;
+    gap: 20px;
+    word-spacing: 20px;
+    flex: 1;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-family: "Brush Script MT";
+}
+
+.BlogHeader h2 a {
+    text-decoration: none;
+    color: #6633FF;
+    font-size: 24px;
+    transition: color 0.3s;
+    font-family: "Brush Script MT";
+}
+
+.BlogHeader h2 a:hover {
+    color: #3300FF;
+}
+
+.BlogBody {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
+}
+
+.BlogBody h3 {
+    font-size: 50px;
+    margin-bottom: 25px;
+    font-family: "Brush Script MT";
+    font-weight: revert;
+    color: #6633FF;
+}
+
+.BlogBody h5 {
+    font-size: 25px;
+    margin-bottom: 25px;
+    font-family: "Brush Script MT";
+    font-weight: revert;
+    color: #6633FF
+}
+
+.BlogBody h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-family: "Brush Script MT";
+    font-weight: revert;
+}
+
+.BlogBody button {
+    background-color: #6633FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.BlogBody button a {
+    color: white;
+    text-decoration: none;
+}
+
+.BlogBody button:hover {
+    background-color: #3300FF;
+}

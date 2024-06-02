@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Account {
+    text-align: center;
+    padding: 20px;
+    background-color: transparent;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #000;
+    width: 100%;
+}
+
+.AccountHeader {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.AccountHeader h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #6633FF;
+    text-align: left;
+    padding-left: 20px;
+    font-family: "Brush Script MT";
+}
+
+.AccountHeader h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #6633FF;
+    text-align: right;
+    padding-right: 20px;
+    font-family: "Brush Script MT";
+    display: flex;
+    gap: 20px;
+}
+
+.AccountHeader h2 a {
+    text-decoration: none;
+    color: #6633FF;
+    transition: color 0.3s;
+}
+
+.AccountHeader h2 a:hover {
+    color: #3300FF;
+}
+
+.AccountBody {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.AccountBody h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #6633FF;
+    text-align: right;
+    padding-right: 20px;
+    font-family: "Brush Script MT";
+    display: flex;
+    gap: 20px;
+}
+
+/* Account.css */
+.small-delete-button {
+    background-color: #6633FF;
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.small-delete-button:hover {
+    background-color: #6633FF;
+}
+
+
+.success-message {
+    color: green;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 20px;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.button-group button {
+    background-color: #6633FF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin: 10px;
+}
+
+.button-group button:hover {
+    background-color: #3300FF;
+}
+
+.section-content {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -41,4 +41,8 @@ public interface BookRepo extends JpaRepository<Book, Integer> {
      */
     Book findBookById(Integer id);
 
+    @Query("SELECT b FROM Book b WHERE b.title = :title AND b.author = :author")
+    Book findByTitleAuthor(String title, String author);
+
+
 }

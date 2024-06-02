@@ -1,8 +1,13 @@
 package com.bookstore.bookstore.api.controller.auth;
 
+import com.bookstore.bookstore.entity.Order;
+import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.OrderData;
+import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.service.OrderService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller class for managing order-related operations.
@@ -40,10 +45,15 @@ public class OrderController {
      * @param orderData The OrderData object representing the order to be found.
      * @return The found OrderData object.
      */
-    @GetMapping("/find")
+    @PostMapping("/find")
     public OrderData findOrder(@RequestBody OrderData orderData) {
         this.orderService.findOrder(orderData);
         return orderData;
+    }
+
+    @GetMapping("/findAll")
+    public List<Order> findAll(){
+        return orderService.findAll();
     }
 
     /**
@@ -66,5 +76,10 @@ public class OrderController {
     public OrderData updateOrder(@RequestBody OrderData orderData) {
         this.orderService.updateOrder(orderData);
         return orderData;
+    }
+
+    @PostMapping("/findByUsername")
+    public List<Order> findByUsername(@RequestBody UsernameData usernameData) {
+        return orderService.findByUsername(usernameData);
     }
 }

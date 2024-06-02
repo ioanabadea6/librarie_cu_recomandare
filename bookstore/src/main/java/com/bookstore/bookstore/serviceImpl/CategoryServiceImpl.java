@@ -6,6 +6,8 @@ import com.bookstore.bookstore.repo.CategoryRepo;
 import com.bookstore.bookstore.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepo categoryRepo;
@@ -40,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category deleteCategory(CategoryData categoryData) {
         Category category = new Category();
-        category = findCategory(categoryData);
+        category = findCategoryByName(categoryData);
         categoryRepo.delete(category);
         return category;
     }
@@ -54,7 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category updateCategory(CategoryData categoryData) {
         Category category = findCategory(categoryData);
-        category.setName(categoryData.getName());
+        if(category != null){
+            category.setName(categoryData.getName());
+        }
         return categoryRepo.save(category);
     }
 
@@ -68,6 +72,34 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findCategory(CategoryData categoryData) {
         Category category = new Category();
         category = categoryRepo.findById(categoryData.getId());
-        return category;
+        if(category != null){
+            return category;
+        }
+        else{
+            return null;
+        }
+    }
+
+    /**
+     * Caută o categorie în baza de date după numele său.
+     *
+     * @param categoryData Obiectul care conține datele categoriei pentru căutare.
+     * @return Categorie găsită sau {@code null} dacă nu există o categorie cu numele respectiv.
+     */
+    @Override
+    public Category findCategoryByName(CategoryData categoryData) {
+        Category category = new Category();
+        category = categoryRepo.findByName(categoryData.getName());
+        if(category != null){
+            return category;
+        }
+        else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<Category> findAll(){
+        return categoryRepo.findAll();
     }
 }

@@ -2,6 +2,7 @@ package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.UserData;
+import com.bookstore.bookstore.model.UserPasswordData;
 import com.bookstore.bookstore.model.UsernameData;
 
 import java.util.List;
@@ -48,4 +49,20 @@ public interface UserService {
      * @return Lista de utilizatori din sistem.
      */
     List<User> findAll();
+
+    /**
+     * Updates the password of a user.
+     *
+     * @param userPasswordData The user data containing the updated password.
+     * @return The updated user object.
+     */
+    User updatePassword(UserPasswordData userPasswordData);
+
+    /**
+     * Logs in a user using the provided user and password data.
+     *
+     * @param userPasswordData The user and password data used for authentication.
+     * @return An Integer representing the login status.
+     */
+    Integer logIn(UserPasswordData userPasswordData);
 }

@@ -1,20 +1,25 @@
 package com.bookstore.bookstore.api.controller.auth;
 
-
 import com.bookstore.bookstore.entity.User;
 import com.bookstore.bookstore.model.UserData;
+import com.bookstore.bookstore.model.UserPasswordData;
 import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.service.UserService;
-import com.bookstore.bookstore.serviceImpl.UserServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/auth")
 public class UserController {
+
     /** The user service. */
-    private UserService userService;
+    private final UserService userService;
 
 
     public UserController(UserService userService) {
@@ -37,7 +42,7 @@ public class UserController {
      * Finds a user based on the provided RegistrationBody.
      * @param usernameData The RegistrationBody object containing user information.
      */
-    @GetMapping("/find")
+    @PostMapping("/find")
     public User findUser(@RequestBody UsernameData usernameData){
         return this.userService.findUser(usernameData);
     }
@@ -70,6 +75,31 @@ public class UserController {
     @GetMapping("/findAll")
     public List<User> findAllUser(){
         return this.userService.findAll();
+    }
+
+    /**
+     * Updates the password of a user.
+     *
+     * @param userdata The user data containing the updated password.
+     */
+    @PutMapping("/updatePass")
+    public void updatePassword(@RequestBody UserPasswordData userdata){
+        this.userService.updatePassword(userdata);
+    }
+
+    /**
+     * Endpoint for logging in a user with provided user and password data.
+     */
+    @PostMapping("/login")
+    public Integer login(@RequestBody UserPasswordData userPasswordData){
+        return this.userService.logIn(userPasswordData);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate the session
+        request.getSession().invalidate();
+        return ResponseEntity.ok().build();
     }
 
 }

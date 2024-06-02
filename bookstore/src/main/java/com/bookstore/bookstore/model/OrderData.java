@@ -11,17 +11,15 @@ public class OrderData {
     private String contactNumber;
     private String paymentMethod;
     private Integer total;
-    private String productDetails;
-    private String createdBy;
     private Integer userId;
-    private List<Integer> booksId;
+    private String address;
 
-    public List<Integer> getBooksId() {
-        return booksId;
+    public String getAddress() {
+        return address;
     }
 
-    public void setBooksId(List<Integer> booksId) {
-        this.booksId = booksId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /**
@@ -112,42 +110,6 @@ public class OrderData {
      */
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    /**
-     * Returnează detaliile produsului comandat.
-     *
-     * @return Detaliile produsului comandat.
-     */
-    public String getProductDetails() {
-        return productDetails;
-    }
-
-    /**
-     * Setează detaliile produsului comandat.
-     *
-     * @param productDetails Detaliile produsului comandat.
-     */
-    public void setProductDetails(String productDetails) {
-        this.productDetails = productDetails;
-    }
-
-    /**
-     * Returnează numele persoanei care a creat comanda.
-     *
-     * @return Numele persoanei care a creat comanda.
-     */
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * Setează numele persoanei care a creat comanda.
-     *
-     * @param createdBy Numele persoanei care a creat comanda.
-     */
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
     }
 
     /**

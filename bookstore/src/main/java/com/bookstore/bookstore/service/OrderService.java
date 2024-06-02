@@ -2,6 +2,9 @@ package com.bookstore.bookstore.service;
 
 import com.bookstore.bookstore.entity.Order;
 import com.bookstore.bookstore.model.OrderData;
+import com.bookstore.bookstore.model.UsernameData;
+
+import java.util.List;
 
 /**
  * Interfața pentru serviciul de gestionare a comenzilor.
@@ -38,4 +41,8 @@ public interface OrderService {
      * @return Comanda găsită sau null dacă nu a fost găsită nicio comandă.
      */
     Order findOrder(OrderData orderData);
+
+    List<Order> findAll();
+
+    List<Order> findByUsername(UsernameData usernameData);
 }

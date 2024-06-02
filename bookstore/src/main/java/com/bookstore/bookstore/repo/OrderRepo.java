@@ -3,6 +3,7 @@ package com.bookstore.bookstore.repo;
 import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.entity.Category;
 import com.bookstore.bookstore.entity.Order;
+import com.bookstore.bookstore.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
@@ -24,9 +25,11 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
     /**
      * Găsește o comandă după id-ul său.
      *
-     * @param id Id-ul comenzii căutate.
+//     * @param id Id-ul comenzii căutate.
      * @return Comanda găsită sau null dacă nu există nicio comandă cu id-ul specificat.
      */
-    Order findById(Integer id);
+//    Order findById(Integer id);
+    List<Order> findByUser(User user);
+
 
 }

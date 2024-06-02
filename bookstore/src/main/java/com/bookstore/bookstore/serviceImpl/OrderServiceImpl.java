@@ -1,31 +1,36 @@
 package com.bookstore.bookstore.serviceImpl;
 
+import com.bookstore.bookstore.entity.Book;
 import com.bookstore.bookstore.entity.Order;
+import com.bookstore.bookstore.entity.User;
+import com.bookstore.bookstore.entity.Wishlist;
 import com.bookstore.bookstore.model.OrderData;
+import com.bookstore.bookstore.model.UsernameData;
 import com.bookstore.bookstore.repo.OrderBookRepo;
 import com.bookstore.bookstore.repo.OrderRepo;
 import com.bookstore.bookstore.repo.UserRepo;
 import com.bookstore.bookstore.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private OrderRepo orderRepo;
     private UserRepo userRepo;
-    private OrderBookRepo orderBookRepo;
 
     /**
      * Constructs an {@code OrderServiceImpl} with the specified repositories.
      *
      * @param orderRepo The repository for {@code Order} entities.
      * @param userRepo The repository for {@code User} entities.
-     * @param orderBookRepo The repository for {@code OrderBook} entities.
+//     * @param orderBookRepo The repository for {@code OrderBook} entities.
      */
-    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo, OrderBookRepo orderBookRepo) {
+    public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo) {
         this.orderRepo = orderRepo;
         this.userRepo = userRepo;
-        this.orderBookRepo = orderBookRepo;
     }
 
     /**
@@ -36,16 +41,17 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order insertOrder(OrderData orderData) {
-        Order order = new Order();
-        order.setName(orderData.getName());
-        order.setEmail(orderData.getEmail());
-        order.setContactNumber(orderData.getContactNumber());
-        order.setPaymentMethod(orderData.getPaymentMethod());
-        order.setTotal(orderData.getTotal());
-        order.setProductDetails(orderData.getProductDetails());
-        order.setCreatedBy(orderData.getCreatedBy());
-        order.setUser(userRepo.findUserById(orderData.getUserId()));
-        //order.setOrderBooks(orderData.getBooksId(orderBookRepo.findByOrderId(orderData.get)));
+        User user = userRepo.findUserByEmail(orderData.getEmail());
+        Order order = findOrder(orderData);
+        if(order != null){
+            order.setName(orderData.getName());
+            order.setEmail(orderData.getEmail());
+            order.setContactNumber(orderData.getContactNumber());
+            order.setPaymentMethod(orderData.getPaymentMethod());
+            order.setTotal(orderData.getTotal());
+            order.setAddress(orderData.getAddress());
+            order.setUser(user);
+        }
         return orderRepo.save(order);
     }
 
@@ -64,8 +70,6 @@ public class OrderServiceImpl implements OrderService {
         order.setContactNumber(orderData.getContactNumber());
         order.setPaymentMethod(orderData.getPaymentMethod());
         order.setTotal(orderData.getTotal());
-        order.setProductDetails(orderData.getProductDetails());
-        order.setCreatedBy(orderData.getCreatedBy());
         orderRepo.delete(order);
         return order;
     }
@@ -78,14 +82,17 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order updateOrder(OrderData orderData) {
+        User user = userRepo.findUserById(orderData.getUserId());
         Order order = findOrder(orderData);
-        order.setName(orderData.getName());
-        order.setEmail(orderData.getEmail());
-        order.setContactNumber(orderData.getContactNumber());
-        order.setPaymentMethod(orderData.getPaymentMethod());
-        order.setTotal(orderData.getTotal());
-        order.setProductDetails(orderData.getProductDetails());
-        order.setCreatedBy(orderData.getCreatedBy());
+        if(order != null){
+            order.setName(orderData.getName());
+            order.setEmail(orderData.getEmail());
+            order.setContactNumber(orderData.getContactNumber());
+            order.setPaymentMethod(orderData.getPaymentMethod());
+            order.setTotal(orderData.getTotal());
+            order.setAddress(orderData.getAddress());
+            order.setUser(user);
+        }
         return orderRepo.save(order);
     }
 
@@ -99,6 +106,26 @@ public class OrderServiceImpl implements OrderService {
     public Order findOrder(OrderData orderData) {
         Order order = new Order();
         order = orderRepo.findByName(orderData.getName());
-        return order;
+        if(order != null){
+            return order;
+        }
+        else{
+            return null;
+        }
+    }
+
+    @Override
+    public List<Order> findAll() {
+        return orderRepo.findAll();
+    }
+
+    @Override
+    public List<Order> findByUsername(UsernameData usernameData) {
+        User user = userRepo.findByUsername(usernameData.getUsername());
+        List<Order> orders = orderRepo.findByUser(user);
+        if (orders.isEmpty()) {
+            throw new RuntimeException("No orders found for user");
+        }
+        return orders;
     }
 }

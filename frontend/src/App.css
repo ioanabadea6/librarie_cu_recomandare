@@ -1,0 +1,72 @@
+body, html, #root, .app, .container {
+  width: 100%;
+  height: 100%;
+}
+
+body, html, #root, .app {
+  background-image: url('E:/An3/PS/librarie_cu_recomandare/frontend/src/images/background_login.avif'); /* Înlocuiți cu calea către imaginea dvs. */
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  font-size: 28px;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /*background-color: rgba(0, 0, 0, 0.5); !* Adăugăm un strat semi-transparent peste fundal *!*/
+  padding: 20px;
+  box-sizing: border-box; /* Asigurăm că padding-ul nu crește dimensiunile containerului */
+  height: 100%;
+}
+
+.loginForm {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  border-radius: 8px;/* Centrarea textului */
+}
+
+.inputField {
+  padding-top: 16px;
+}
+
+.input {
+  box-sizing: border-box;
+  outline: none;
+  border: solid 2px #1189de;
+  border-radius: 8px; /* Colțuri rotunjite */
+  color: #292929;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 1);
+}
+
+.submitButton {
+  padding-top: 16px;
+}
+
+h2 {
+  margin-bottom: 60px; /* Mutăm textul mai jos */
+}
+
+.btn {
+  width: 100%;
+  min-width: 280px;
+  color: #565656;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  border: solid 2px #1189de;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+}

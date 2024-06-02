@@ -1,0 +1,135 @@
+/* CartPage.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.CartPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.CartHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    font-family: "Brush Script MT";
+    color: #6633FF;
+    margin-top: 20px;
+}
+
+.CartHeader h1 {
+    margin: 0;
+    font-size: 36px;
+    color: #6633FF;
+    flex: 1;
+    text-align: left;
+    padding-left: 20px;
+    font-family: "Brush Script MT";
+}
+
+.CartHeader h2 {
+    margin: 0;
+    color: #6633FF;
+}
+
+.CartHeader .books,
+.CartHeader .account,
+.CartHeader .blog {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #6633FF;
+    font-size: 24px;
+}
+
+.CartHeader .books:hover,
+.CartHeader .account:hover,
+.CartHeader .blog:hover {
+    text-decoration: underline;
+}
+
+.CartBody {
+    margin-top: 80px; /* To avoid overlap with the fixed header */
+    max-width: 800px;
+    width: 100%;
+    margin: 80px auto 0 auto; /* Adjust margin to allow scrolling under the fixed header */
+    padding: 20px;
+}
+
+.CartBody h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.CartBody table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.CartBody th,
+.CartBody td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+}
+
+.CartBody th {
+    background-color: lightgray;
+    color: #333;
+}
+
+.CartBody td input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+}
+
+.CartBody button {
+    background-color: #6633FF;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.CartBody button:hover {
+    background-color: #6633FF;
+}
+
+.total {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    color: #333;
+}
+
+.place-order {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    float: right;
+}
+
+.place-order:hover {
+    background-color: #218838;
+}

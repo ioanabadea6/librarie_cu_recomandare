@@ -12,9 +12,9 @@ public class OrderBook {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;
+//    @ManyToOne
+//    @JoinColumn(name = "order_id", referencedColumnName = "id")
+//    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
@@ -36,23 +36,23 @@ public class OrderBook {
         this.id = id;
     }
 
-    /**
-     * Retrieves the order associated with this order book.
-     *
-     * @return the order associated with this order book
-     */
-    public Order getOrder() {
-        return order;
-    }
-
-    /**
-     * Sets the order associated with this order book.
-     *
-     * @param order the order to be associated with this order book
-     */
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+//    /**
+//     * Retrieves the order associated with this order book.
+//     *
+//     * @return the order associated with this order book
+//     */
+//    public Order getOrder() {
+//        return order;
+//    }
+//
+//    /**
+//     * Sets the order associated with this order book.
+//     *
+//     * @param order the order to be associated with this order book
+//     */
+//    public void setOrder(Order order) {
+//        this.order = order;
+//    }
 
     /**
      * Retrieves the book associated with this order book.
@@ -102,7 +102,7 @@ public class OrderBook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderBook orderBook = (OrderBook) o;
-        return Objects.equals(id, orderBook.id) && Objects.equals(order, orderBook.order) && Objects.equals(book, orderBook.book) && Objects.equals(quantity, orderBook.quantity);
+        return Objects.equals(id, orderBook.id) && Objects.equals(book, orderBook.book) && Objects.equals(quantity, orderBook.quantity);
     }
 
     /**
@@ -113,6 +113,6 @@ public class OrderBook {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, order, book, quantity);
+        return Objects.hash(id, book, quantity);
     }
 }
