@@ -115,13 +115,13 @@ class Books extends Component {
                 <div className="BooksBody">
                     <div className="BooksSidebar">
                         <div className="BooksSearch">
-                            <input
-                                type="text"
-                                placeholder="Search books..."
-                                value={searchQuery}
-                                onChange={this.handleSearch}
-                            />
-                            <button onClick={this.handleSearchButtonClick}>Search</button>
+                            {/*<input*/}
+                            {/*    type="text"*/}
+                            {/*    placeholder="Search books..."*/}
+                            {/*    value={searchQuery}*/}
+                            {/*    onChange={this.handleSearch}*/}
+                            {/*/>*/}
+                            {/*<button onClick={this.handleSearchButtonClick}>Search</button>*/}
                         </div>
                         <div className="BooksFilters">
                             <h3>Filter by:</h3>

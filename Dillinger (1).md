@@ -60,12 +60,21 @@ Attributes:
 -book (Book): Many-to-one relationship linked via 'book_id'.
 -quantity (Integer): Quantity of books ordered.
 
-6. Wishlist Entity
+6  Wishlist Entity
 - Description: Represents a user's wishlist.
 Attributes:
 -id: A unique identifier for each wishlist entry. It is the primary key and is auto-generated.
 -user: Represents the user who owns the wishlist. It is mapped using a foreign key (user_id) to the User entity.
 -book: Represents the book added to the wishlist. It is mapped using a foreign key (book_id) to the Book entity.
+
+7  Review Entity
+-Desciption: Represents a books's review.
+Attributes:
+-id(Long): Unique identifier of the review.
+-user(User): The user who created the review.
+-book(Book): The book for which the review was created.
+-message(String): The message of the review.
+-rating:(int): The rating given to the book in the review. This is an integer value between 1 and 5.
 
 These relationships are typically managed by JPA (Java Persistence API) using annotations like @OneToOne, @OneToMany, @ManyToOne, and @ManyToMany. The @JoinColumn annotation is used to define the actual foreign key in the database.
 
@@ -92,60 +101,65 @@ These relationships are typically managed by JPA (Java Persistence API) using an
 
 ## Backend
 - Endpoints
-- Book: /book
+1  Book: /book
 Endpoints
-POST/insert: Adds a new book to the system.
-POST/find: Retrieves a book based on criteria.
-DELETE/delete: Deletes a specified book from the system.
-PUT/update: Updates details of an existing book.
-GET/findAll: Retrieves all books available in the system.
-GET/{id}: Retrieves a book based on id.
-GET/random: Retrieves a random book.
-GET/findByTitlePriceAuthorAndCategory: Searches books based on title, price, author, and category criteria.
-GET/findByTitleAuthor: Searches books based on title, author.
-PUT/updateStock: Updates stock of an existing book.
+- POST/insert: Adds a new book to the system.
+- POST/find: Retrieves a book based on criteria.
+- DELETE/delete: Deletes a specified book from the system.
+- PUT/update: Updates details of an existing book.
+- GET/findAll: Retrieves all books available in the system.
+- GET/{id}: Retrieves a book based on id.
+- GET/random: Retrieves a random book.
+- GET/findByTitlePriceAuthorAndCategory: Searches books based on title, price, author, and category criteria.
+- GET/findByTitleAuthor: Searches books based on title, author.
+- PUT/updateStock: Updates stock of an existing book.
 
-- Category: /category
-POST/insert: Adds a new category to the system.
-GET/find: Retrieves a category based on specified criteria.
-DELETE/delete: Deletes a specified category from the system.
-Request Body: CategoryData (details of the category to be deleted)
-PUT/update: Updates details of an existing category.
-GET/findAll: Retrieves all categories available in the system.
+2  Category: /category
+- POST/insert: Adds a new category to the system.
+- GET/find: Retrieves a category based on specified criteria.
+- DELETE/delete: Deletes a specified category from the system.
+- Request Body: CategoryData (details of the category to be deleted)
+- PUT/update: Updates details of an existing category.
+- GET/findAll: Retrieves all categories available in the system.
 
-- OrderBook: /orderBook
-POST/insert: Adds a new order book record to the system.
-POST/find: Retrieves an order book based on specified criteria.
-DELETE
+3  OrderBook: /orderBook
+- POST/insert: Adds a new order book record to the system.
+- POST/find: Retrieves an order book based on specified criteria.
+- DELETE
 Path:/deleteByBookId/{bookId}: Removes a specified order book from the system.
 Path:/deleteAll: Removes all orderBooks from the system.
-PUT/update: Updates details of an existing order book.
-GET/findAll: Retrieves all order books in the system.
+- PUT/update: Updates details of an existing order book.
+- GET/findAll: Retrieves all order books in the system.
 
-- Order: /order
-POST/insert: Creates a new order in the system.
-POST/find: Retrieves an order based on specified criteria.
-DELETE/delete: Deletes an existing order from the system.
-PUT/update: Updates an existing order with new information.
-GET/findAll: Retrieves all ordes in the system.
+4  Order: /order
+- POST/insert: Creates a new order in the system.
+- POST/find: Retrieves an order based on specified criteria.
+- DELETE/delete: Deletes an existing order from the system.
+- PUT/update: Updates an existing order with new information.
+- GET/findAll: Retrieves all ordes in the system.
 
-- User: /auth
-POST/insert: Registers a new user in the system.
-POST/find: Retrieves a user based on the provided username data.
-DELETE/delete: Removes a user from the system based on provided username data.
-PUT/update: Updates details of an existing user.
-PUT/updatePass: Updates password of an existing user.
-GET/findAll: Retrieves a list of all users in the system.
-PUT/findAll: Retrieves all users in the system.
-POST/login: Login a user.
-POST/logout: logout a user.
+5  User: /auth
+- POST/insert: Registers a new user in the system.
+- POST/find: Retrieves a user based on the provided username data.
+- DELETE/delete: Removes a user from the system based on provided username data.
+- PUT/update: Updates details of an existing user.
+- PUT/updatePass: Updates password of an existing user.
+- GET/findAll: Retrieves a list of all users in the system.
+- PUT/findAll: Retrieves all users in the system.
+- POST/login: Login a user.
+- POST/logout: logout a user.
 
-- Wishlist: /wishlist
-POST/insert: Adds a book to the user's favorite list.
-DELETE/delete: Removes a book from the user's favorite list.
-POST/getFavorite: Retrieves the wishlist books for a user.
+6  Wishlist: /wishlist
+- POST/insert: Adds a book to the user's favorite list.
+- DELETE/delete: Removes a book from the user's favorite list.
+- POST/getFavorite: Retrieves the wishlist books for a user.
 
-- Observer pattern
+7  Review: /review
+- POST/insert: Inserts a new review into the database.
+- DELETE/delete: Deletes a review from the database.
+- POST/getReview: Retrieves reviews associated with a specific book title.
+
+## Observer pattern
 
 The Observer pattern is a software design pattern that establishes a one-to-many relationship between objects so that when one object changes state, all of its dependents are notified and updated automatically. This pattern is especially useful for implementing distributed event-handling systems, where the state of one object needs to trigger actions in other objects without making the objects tightly coupled.
 

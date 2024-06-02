@@ -26,6 +26,12 @@ public class ReviewServiceImpl implements ReviewService {
         this.userRepo = userRepo;
     }
 
+    /**
+     * Inserts a new review into the database based on the provided ReviewData.
+     *
+     * @param reviewData The ReviewData object containing review details.
+     * @return The inserted Review object.
+     */
     @Override
     public Review insert(ReviewData reviewData) {
         User user = userRepo.findByUsername(reviewData.getUsername());
@@ -40,6 +46,12 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepo.save(review);
     }
 
+    /**
+     * Deletes a review from the database based on the provided ReviewData.
+     *
+     * @param reviewData The ReviewData object containing review details.
+     * @return The deleted Review object.
+     */
     @Override
     public Review delete(ReviewData reviewData) {
         User user = userRepo.findByUsername(reviewData.getUsername());
@@ -55,6 +67,12 @@ public class ReviewServiceImpl implements ReviewService {
         return review;
     }
 
+    /**
+     * Finds all reviews associated with a specific book title.
+     *
+     * @param bookTitleData The BookTitleData object containing the book title.
+     * @return A list of Review objects associated with the specified book title.
+     */
     @Override
     public List<Review> findBooksReview(BookTitleData bookTitleData) {
         Book book = bookRepo.findByTitle(bookTitleData.getTitle());

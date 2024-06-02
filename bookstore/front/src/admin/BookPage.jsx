@@ -10,6 +10,8 @@ const BookPage = () => {
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [reviews, setReviews] = useState([]);
+    const [newReview, setNewReview] = useState({ rating: '', message: '' });
 
     useEffect(() => {
         const authStatus = localStorage.getItem('isAuthenticated') === 'true';
@@ -22,9 +24,19 @@ const BookPage = () => {
             const response = await axios.get(`http://localhost:8080/book/${id}`);
             setBook(response.data);
             setLoading(false);
+            fetchReviews(response.data.title);
         } catch (error) {
             setError(error.message);
             setLoading(false);
+        }
+    };
+
+    const fetchReviews = async (title) => {
+        try {
+            const response = await axios.post('http://localhost:8080/review/getReviews', { title });
+            setReviews(response.data);
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
         }
     };
 
@@ -55,6 +67,39 @@ const BookPage = () => {
         } catch (error) {
             console.error('Error adding to wishlist:', error);
         }
+    };
+
+    const handleAddReview = async () => {
+        try {
+            const username = localStorage.getItem('username'); // Assumes you store username in localStorage
+            await axios.post('http://localhost:8080/review/insert', {
+                username,
+                title: book.title,
+                rating: newReview.rating,
+                message: newReview.message
+            });
+            setNewReview({ rating: '', message: '' });
+            fetchReviews(book.title); // Refresh reviews
+        } catch (error) {
+            console.error('Error adding review:', error);
+        }
+    };
+
+    const handleDeleteReview = async (reviewId) => {
+        try {
+            await axios.delete('http://localhost:8080/review/delete', { data: { id: reviewId } });
+            fetchReviews(book.title); // Refresh reviews
+        } catch (error) {
+            console.error('Error deleting review:', error);
+        }
+    };
+
+    const handleReviewChange = (e) => {
+        const { name, value } = e.target;
+        setNewReview(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     if (loading) {
@@ -107,6 +152,38 @@ const BookPage = () => {
                         <button onClick={handleAddToWishlist} className="wishlist-button">Add to Wishlist</button>
                         <button onClick={handleAddToCart} className="cart-button">Add to Cart</button>
                     </div>
+                </div>
+                <div className="BookReviews">
+
+                    <div className="AddReview">
+                        <h4>Add a Review</h4>
+                        <input
+                            type="number"
+                            name="rating"
+                            value={newReview.rating}
+                            onChange={handleReviewChange}
+                            placeholder="Rating"
+                            min="1"
+                            max="5"
+                            className="review-input"
+                        />
+                        <textarea
+                            name="message"
+                            value={newReview.message}
+                            onChange={handleReviewChange}
+                            placeholder="Message"
+                            className="review-textarea"
+                        ></textarea>
+                        <button onClick={handleAddReview}>Submit Review</button>
+                    </div>
+                    <h3>Reviews</h3>
+                    {reviews.map(review => (
+                        <div key={review.id} className="review">
+                            <p><strong>Rating:</strong> {review.rating}</p>
+                            <p><strong>Message:</strong> {review.message}</p>
+                            {/*<button onClick={() => handleDeleteReview(review.id)}>Delete</button>*/}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

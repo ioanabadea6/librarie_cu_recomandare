@@ -96,3 +96,53 @@
 .wishlist-button:hover, .cart-button:hover {
     background-color: #6633FF;
 }
+
+.BookReviews {
+    flex: 1;
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    align-items: center;
+}
+
+.BookReviews::-webkit-scrollbar {
+    display: none;
+}
+
+.reviews-list {
+    padding-right: 15px;
+}
+
+.review {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+.review button {
+    padding: 5px 10px;
+    background-color: #6633FF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.AddReview input,
+.AddReview textarea {
+    width: calc(100% - 12px);
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.AddReview button {
+    padding: 10px 20px;
+    background-color: #6633FF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
