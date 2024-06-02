@@ -14,7 +14,7 @@ const LogoutPage = () => {
                 localStorage.setItem('isAuthenticated', 'false');
                 localStorage.removeItem('username');
                 localStorage.removeItem('password');
-                localStorage.clear();// Dacă ai un token, îl poți șterge
+                // localStorage.clear();// Dacă ai un token, îl poți șterge
                 navigate('/');
             } catch (error) {
                 console.error('Logout failed', error);
@@ -22,7 +22,7 @@ const LogoutPage = () => {
                 localStorage.removeItem('username');
                 localStorage.removeItem('username');
                 localStorage.removeItem('password');
-                localStorage.clear();// Dacă ai un token, îl poți șterge
+                // localStorage.clear();// Dacă ai un token, îl poți șterge
                 navigate('/');
             }
         };

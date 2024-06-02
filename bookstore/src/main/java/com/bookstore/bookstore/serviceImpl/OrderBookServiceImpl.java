@@ -42,6 +42,14 @@ public class OrderBookServiceImpl implements OrderBookService {
     @Override
     public OrderBook insertOrderBook(OrderBookData orderBookData) {
         Book book = bookRepo.findById(orderBookData.getBook_id()).orElseThrow(() -> new RuntimeException("Book not found"));
+        if (book.getStock() < orderBookData.getQuantity()) {
+            throw new RuntimeException("Not enough stock for book: " + book.getTitle());
+        }
+
+        // Reduce the stock
+        book.setStock(book.getStock() - orderBookData.getQuantity());
+        bookRepo.save(book);
+
         OrderBook orderBook = new OrderBook();
         orderBook.setBook(book);
         orderBook.setQuantity(orderBookData.getQuantity());

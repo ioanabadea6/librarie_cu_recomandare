@@ -44,7 +44,6 @@ const BookPage = () => {
         }
     };
 
-
     const handleAddToWishlist = async () => {
         try {
             const username = localStorage.getItem('username'); // Assumes you store username in localStorage
