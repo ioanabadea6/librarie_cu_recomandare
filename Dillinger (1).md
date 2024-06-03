@@ -80,11 +80,18 @@ These relationships are typically managed by JPA (Java Persistence API) using an
 
 ![Diagrama bd]
 ("E:\An3\PS\librarie_cu_recomandare\diagrama_bd.png")
+![diagrama_bd](https://github.com/ioanabadea6/librarie_cu_recomandare/assets/119163461/3e7b6f87-2575-4e94-88ad-d0c7301382b0)
+
 ("E:\An3\PS\librarie_cu_recomandare\bookstore.png")
+![bookstore](https://github.com/ioanabadea6/librarie_cu_recomandare/assets/119163461/47f21dd4-3d78-4e28-a695-1757223e5514)
+
 ![Admin]
 ("E:\An3\PS\librarie_cu_recomandare\admin.png")
+![admin](https://github.com/ioanabadea6/librarie_cu_recomandare/assets/119163461/e1a58d0d-1ef4-4b61-b496-a253df983399)
+
 ![User]
 ("E:\An3\PS\librarie_cu_recomandare\user.png")
+![user](https://github.com/ioanabadea6/librarie_cu_recomandare/assets/119163461/a6839370-e40c-41ba-916e-e9da7f53e002)
 
 ## Technology Stack
 
